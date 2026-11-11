@@ -1,0 +1,15 @@
+{
+  "name": "PYQ Loop — GATE EC",
+  "short_name": "PYQ Loop",
+  "description": "Question-first GATE EC practice: mark unknown, get solution + principle, repair, retry.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1216",
+  "theme_color": "#0f1216",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
