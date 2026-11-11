@@ -114,6 +114,31 @@
   </section>
 
   <section>
+    <h2>Auto-sync (phone ⇄ laptop)</h2>
+    <div class="card" style="padding:12px">
+      <div class="hint" style="margin-bottom:8px">One private Gist is the shared store. Both devices read/write it automatically — no export, no import. Data is not sensitive; the token only has <b>gist</b> scope.</div>
+      <div class="row" style="margin-top:0">
+        <input id="syncToken" placeholder="GitHub token (gist scope)" style="flex:1;min-width:200px" autocomplete="off">
+        <button id="btnConnect" class="primary">Connect / create gist</button>
+      </div>
+      <div class="row">
+        <button id="btnPull">Sync now</button>
+        <button id="btnDisconnect">Turn sync off</button>
+        <span class="hint" id="syncStatus">not connected</span>
+      </div>
+      <details style="margin-top:10px">
+        <summary>First-time setup (2 minutes, do it once per device)</summary>
+        <ol class="hint" style="line-height:1.7;padding-left:18px">
+          <li>github.com → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token.</li>
+          <li>Name it <code>pyq-loop</code>, expiry 90 days, tick <b>only</b> the <code>gist</code> checkbox.</li>
+          <li>Paste the token above → <b>Connect / create gist</b>. That creates a private gist and uploads current progress.</li>
+          <li>On the other device: paste the <b>same token</b> → Connect. It finds the same gist and merges automatically.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <section>
     <h2>Tools</h2>
     <details>
       <summary>Add questions (paste JSON array)</summary>
@@ -265,6 +290,7 @@ function load(){
 function save(){
   localStorage.setItem(LS_PROG, JSON.stringify(prog));
   localStorage.setItem(LS_PRIN, JSON.stringify(principles));
+  schedulePush();
 }
 function st(id){
   if(!prog[id]) prog[id] = {status:"new", attempts:0, wrong:0};
@@ -509,6 +535,168 @@ function resetProgress(){
   prog = {}; principles = []; save();
   renderStats(); renderTopics(); renderPrinciples(); renderCard();
 }
+
+/* ---------------- auto-sync via private GitHub Gist ---------------- */
+const LS_SYNC = "pyqLoop.sync.v1";
+let sync = {mode:"off", token:"", gistId:"", lastSync:0};
+let pushTimer = null, pushing = false;
+
+function loadSync(){
+  try { sync = Object.assign(sync, JSON.parse(localStorage.getItem(LS_SYNC) || "{}")); } catch(e){}
+  if (sync.token) $("syncToken").value = sync.token;
+  setSyncStatus(sync.mode === "gist" ? "connected · " + (sync.lastSync ? "synced " + new Date(sync.lastSync).toLocaleString() : "not synced yet") : "not connected");
+}
+function persistSync(){ localStorage.setItem(LS_SYNC, JSON.stringify(sync)); }
+function setSyncStatus(msg){ const el = $("syncStatus"); if(el) el.textContent = msg; }
+
+function customBank(){ try { return JSON.parse(localStorage.getItem(LS_BANK) || "[]"); } catch(e){ return []; } }
+function setCustomBank(arr){ localStorage.setItem(LS_BANK, JSON.stringify(arr)); }
+
+function payload(){
+  return {app:"pyq-loop", v:1, updatedAt:Date.now(), progress:prog, principles, customBank:customBank()};
+}
+
+function mergeRemote(remote){
+  let changed = false;
+  const rp = (remote && remote.progress) || {};
+  Object.keys(rp).forEach(id => {
+    const l = prog[id], r = rp[id];
+    if (!l || (r.lastAt || 0) > (l.lastAt || 0)) { prog[id] = r; changed = true; }
+  });
+  const seen = new Set(principles.map(p => p.topic + "|" + p.text + "|" + p.date));
+  ((remote && remote.principles) || []).forEach(p => {
+    const k = p.topic + "|" + p.text + "|" + p.date;
+    if (!seen.has(k)) { principles.push(p); seen.add(k); changed = true; }
+  });
+  const ids = new Set(customBank().map(q => q.id));
+  let added = [];
+  ((remote && remote.customBank) || []).forEach(q => {
+    if (q && q.id && !ids.has(q.id)) { added.push(q); ids.add(q.id); }
+  });
+  if (added.length) { setCustomBank(customBank().concat(added)); changed = true; }
+  if (changed) {
+    load(); populateTopics(); renderStats(); renderTopics(); renderPrinciples();
+    if (cur && bank.some(q => q.id === cur.id)) renderCard(); else nextQ();
+  }
+  return changed;
+}
+
+async function readRemote(){
+  const r = await fetch("https://api.github.com/gists/" + sync.gistId, {
+    headers: { Authorization: "token " + sync.token, Accept: "application/vnd.github+json" }
+  });
+  if (!r.ok) throw new Error("read HTTP " + r.status);
+  const j = await r.json();
+  const file = j.files["pyq-loop.json"] || Object.values(j.files || {})[0];
+  if (!file) throw new Error("no data file in gist");
+  let content = file.content;
+  if (file.truncated && file.raw_url) content = await (await fetch(file.raw_url)).text();
+  return JSON.parse(content);
+}
+
+async function writeRemote(data){
+  const r = await fetch("https://api.github.com/gists/" + sync.gistId, {
+    method: "PATCH",
+    headers: {
+      Authorization: "token " + sync.token,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ files: { "pyq-loop.json": { content: JSON.stringify(data) } } })
+  });
+  if (!r.ok) throw new Error("write HTTP " + r.status);
+}
+
+async function findGist(){
+  const r = await fetch("https://api.github.com/gists?per_page=100", {
+    headers: { Authorization: "token " + sync.token, Accept: "application/vnd.github+json" }
+  });
+  if (!r.ok) throw new Error("list HTTP " + r.status);
+  const list = await r.json();
+  const hit = (list || []).find(g => g.description === "PYQ Loop sync" || (g.files && g.files["pyq-loop.json"]));
+  return hit ? hit.id : null;
+}
+
+async function createGist(){
+  const r = await fetch("https://api.github.com/gists", {
+    method: "POST",
+    headers: {
+      Authorization: "token " + sync.token,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      description: "PYQ Loop sync",
+      public: false,
+      files: { "pyq-loop.json": { content: JSON.stringify(payload()) } }
+    })
+  });
+  if (!r.ok) throw new Error("create HTTP " + r.status);
+  const j = await r.json();
+  return j.id;
+}
+
+async function connectSync(){
+  const token = ($("syncToken").value || "").trim();
+  if (!token) { setSyncStatus("paste a token first"); return; }
+  setSyncStatus("connecting…");
+  try {
+    sync.token = token;
+    sync.gistId = await findGist();
+    if (!sync.gistId) sync.gistId = await createGist();
+    sync.mode = "gist"; persistSync();
+    await pullNow();
+    setSyncStatus("connected · synced " + new Date().toLocaleTimeString());
+  } catch(e){
+    sync.mode = "off"; persistSync();
+    setSyncStatus("failed: " + e.message + " (token needs gist scope)");
+  }
+}
+
+async function pullNow(){
+  if (sync.mode !== "gist" || !sync.gistId) { setSyncStatus("not connected"); return; }
+  setSyncStatus("syncing…");
+  try {
+    const remote = await readRemote();
+    mergeRemote(remote);
+    sync.lastSync = Date.now(); persistSync();
+    setSyncStatus("synced " + new Date().toLocaleTimeString());
+  } catch(e){ setSyncStatus("sync error: " + e.message); }
+}
+
+async function pushNow(){
+  if (sync.mode !== "gist" || !sync.gistId || pushing) return;
+  pushing = true;
+  try {
+    try { mergeRemote(await readRemote()); } catch(e){}
+    await writeRemote(payload());
+    sync.lastSync = Date.now(); persistSync();
+    setSyncStatus("saved " + new Date().toLocaleTimeString());
+  } catch(e){ setSyncStatus("save error: " + e.message); }
+  pushing = false;
+}
+
+function schedulePush(){
+  if (sync.mode !== "gist" || !sync.gistId) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushNow, 1200);
+}
+
+function disconnectSync(){
+  sync = {mode:"off", token:"", gistId:"", lastSync:0};
+  persistSync(); setSyncStatus("sync off · this device only");
+}
+
+loadSync();
+if (sync.mode === "gist" && sync.gistId) setTimeout(pullNow, 600);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && sync.mode === "gist") pullNow();
+  if (document.visibilityState === "hidden") pushNow();
+});
+window.addEventListener("online", () => { if (sync.mode === "gist") pullNow(); });
+$("btnConnect").onclick = connectSync;
+$("btnPull").onclick = pullNow;
+$("btnDisconnect").onclick = disconnectSync;
 
 load();
 populateTopics();

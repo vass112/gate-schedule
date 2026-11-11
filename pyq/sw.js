@@ -1,5 +1,5 @@
 /* PYQ Loop service worker — offline-first cache for the app shell */
-const CACHE = "pyq-loop-v1";
+const CACHE = "pyq-loop-v2";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (e) => {
@@ -29,3 +29,4 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+
