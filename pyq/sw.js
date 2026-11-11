@@ -1,9 +1,19 @@
 /* PYQ Loop service worker - offline-first cache for the app shell */
-const CACHE = "pyq-loop-v2";
+const CACHE = "pyq-loop-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
+const CDN = [
+  "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css",
+  "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then((c) => c.addAll(ASSETS).then(() => Promise.all(
+        CDN.map((u) => c.add(u).catch(() => null))
+      )))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (e) => {

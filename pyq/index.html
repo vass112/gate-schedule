@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="PYQ Loop">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <title>PYQ Loop — GATE EC question tracker</title>
 <style>
   :root{
@@ -47,6 +49,9 @@
   .opt.right{border-color:var(--ok);background:#11251a}
   .opt.wrong{border-color:var(--bad);background:#2a1416}
   .opt:disabled{opacity:.9;cursor:default}
+  .figure{margin:10px 0}
+  .figure img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff;display:block}
+  .figure .hint{margin-top:5px}
   .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
   .sol{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
   .sol.show{display:block}
@@ -142,7 +147,7 @@
     <h2>Tools</h2>
     <details>
       <summary>Add questions (paste JSON array)</summary>
-      <div class="hint">Each item: {exam, year, qno, topic, text, options:[..], answer:index, solution, principle, src, verified:true|false}</div>
+      <div class="hint">Each item: {exam, year, qno, topic, text, options:[..], answer:index, solution, principle, src, verified:true|false, image:"path or url"}. Use $...$ for math. Circuit diagrams go in <b>image</b>.</div>
       <textarea id="addBox" placeholder='[{"exam":"GATE EC","year":2024,"qno":12,"topic":"Signals","text":"...","options":["A","B","C","D"],"answer":1,"solution":"...","principle":"...","src":"GATE EC 2024 Paper","verified":true}]'></textarea>
       <div class="row"><button class="ok" id="btnAdd">Add to bank</button><span class="hint" id="addMsg"></span></div>
     </details>
@@ -257,7 +262,7 @@ const SEED = [
    principle:"Step error from Kp, ramp from Kv, parabola from Ka. Type-1: step error 0, ramp error 1/Kv."},
   {id:"drill-ctrl-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Control", verified:false,
    src:"pattern drill — replace with official paper",
-   text:"For G(s) = 1/(s(s+1)), the high-frequency magnitude slope of the Bode plot is:",
+   text:"For $G(s) = \\dfrac{1}{s(s+1)}$, the high-frequency magnitude slope of the Bode plot is:",
    options:["−20 dB/decade","−40 dB/decade","+20 dB/decade","0 dB/decade"],
    answer:1,
    solution:"One pole at origin (−20) plus one simple pole (−20) → −40 dB/decade at high frequency.",
@@ -279,6 +284,21 @@ let timerId = null, timerEnd = 0, timerLeft = 0;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Renders $...$ / $$...$$ / \(...\) with KaTeX when available, escapes the rest.
+function mathHtml(s){
+  const raw = String(s == null ? "" : s);
+  if(!(window.katex && window.katex.renderToString)) return esc(raw).replace(/\n/g, "<br>");
+  const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$|\\\([\s\S]+?\\\))/g);
+  return parts.map(p => {
+    try {
+      if(/^\$\$[\s\S]+\$\$$/.test(p)) return katex.renderToString(p.slice(2,-2), {displayMode:true, throwOnError:false});
+      if(/^\$[^$\n]+\$$/.test(p)) return katex.renderToString(p.slice(1,-1), {throwOnError:false});
+      if(/^\\\([\s\S]+\\\)$/.test(p)) return katex.renderToString(p.slice(2,-2), {throwOnError:false});
+    } catch(e){ /* fall through to plain */ }
+    return esc(p).replace(/\n/g, "<br>");
+  }).join("");
+}
 
 function load(){
   try { prog = JSON.parse(localStorage.getItem(LS_PROG) || "{}"); } catch(e){ prog = {}; }
@@ -383,8 +403,11 @@ function renderCard(){
   const opts = (q.options || []).map((o,i) => {
     let cls = "opt", dis = "";
     if(s.revealed){ dis = "disabled"; if(i === q.answer) cls += " right"; }
-    return `<button class="${cls}" data-i="${i}" ${dis}>${String.fromCharCode(65+i)}. ${esc(o)}</button>`;
+    return `<button class="${cls}" data-i="${i}" ${dis}>${String.fromCharCode(65+i)}. ${mathHtml(o)}</button>`;
   }).join("");
+  const fig = q.image
+    ? `<div class="figure"><img src="${esc(q.image)}" alt="figure for this question" loading="lazy">${q.figCaption ? `<div class="hint">${esc(q.figCaption)}</div>` : ""}</div>`
+    : "";
   el.innerHTML = `
     <div class="meta">
       <span class="tag topic">${esc(q.topic)}</span>
@@ -392,7 +415,8 @@ function renderCard(){
       <span class="tag ${q.verified ? "verified" : "unverified"}">${q.verified ? "verified source" : "UNVERIFIED — add official paper"}</span>
       <span>${esc(q.exam || "")}${q.year ? " · " + q.year : ""}${q.qno ? " · Q" + q.qno : ""}</span>
     </div>
-    <div class="q">${esc(q.text)}</div>
+    <div class="q">${mathHtml(q.text)}</div>
+    ${fig}
     <div class="opts">${opts}</div>
     <div class="row">
       <button id="btnUnknown" class="warn">Don't know → show solution</button>
@@ -400,9 +424,9 @@ function renderCard(){
     </div>
     <div class="sol ${s.revealed ? "show" : ""}" id="sol">
       <h3>Solution</h3>
-      <div>${esc(q.solution)}</div>
+      <div>${mathHtml(q.solution)}</div>
       <h3 style="margin-top:12px">Principle to repair</h3>
-      <div class="principle">${esc(q.principle)}</div>
+      <div class="principle">${mathHtml(q.principle)}</div>
       <div class="row">
         <span class="hint">Repair cap:</span> <span class="timer" id="tmr">20:00</span>
         <button id="btnStartTimer">Start 20-min repair</button>
@@ -494,7 +518,7 @@ function addQuestions(){
       topic: q.topic || "Other", text: q.text, options: q.options,
       answer: Number(q.answer) || 0, solution: q.solution || "",
       principle: q.principle || "", src: q.src || "user-added",
-      verified: !!q.verified
+      verified: !!q.verified, image: q.image || null, figCaption: q.figCaption || null
     });
   });
   if(!clean.length){ $("addMsg").textContent = "No valid items (need text + options)."; return; }
