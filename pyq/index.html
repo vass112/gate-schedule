@@ -274,8 +274,8 @@
     th:nth-child(4),td:nth-child(4){display:none}
     th:nth-child(3),td:nth-child(3){width:32%}
   }
-  .bar{height:6px;background:var(--bg-sunken);border-radius:99px;overflow:hidden;min-width:64px}
-  .bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+  .meter{height:6px;background:var(--bg-sunken);border-radius:99px;overflow:hidden;min-width:64px}
+  .meter i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
   ol.principles{margin:0;padding-left:18px}
   ol.principles li{margin-bottom:9px;font-size:13.5px;line-height:1.5}
   ol.principles b{color:#9dc4ff;font-weight:600}
@@ -818,7 +818,7 @@ function renderProgress(){
   const rows = Object.keys(byTopic).sort().map(t => {
     const d = byTopic[t], pct = Math.round(100*d.done/d.n);
     return `<tr><td>${esc(t)}</td><td>${d.done}/${d.n}</td>
-      <td><div class="bar"><i style="width:${pct}%"></i></div></td><td style="text-align:right">${pct}%</td></tr>`;
+      <td><div class="meter"><i style="width:${pct}%"></i></div></td><td style="text-align:right">${pct}%</td></tr>`;
   }).join("");
 
   const pr = principles.slice().reverse().map(p =>

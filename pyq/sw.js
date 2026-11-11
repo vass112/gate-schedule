@@ -1,5 +1,5 @@
 /* PYQ Loop service worker - offline-first cache for the app shell */
-const CACHE = "pyq-loop-v5";
+const CACHE = "pyq-loop-v6";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./bank-ec2024.json"];
 const CDN = [
   "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css",
