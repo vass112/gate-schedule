@@ -48,6 +48,7 @@
   .opt{text-align:left;padding:13px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;font-size:15.5px;min-height:50px}
   .opt.right{border-color:var(--ok);background:#11251a}
   .opt.wrong{border-color:var(--bad);background:#2a1416}
+  .opt.sel{border-color:var(--acc);background:#12202b;box-shadow:inset 0 0 0 1px var(--acc)}
   .opt:disabled{opacity:.9;cursor:default}
   .figure{margin:10px 0}
   .figure img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff;display:block}
@@ -305,7 +306,24 @@ function load(){
   try { principles = JSON.parse(localStorage.getItem(LS_PRIN) || "[]"); } catch(e){ principles = []; }
   let custom = [];
   try { custom = JSON.parse(localStorage.getItem(LS_BANK) || "[]"); } catch(e){ custom = []; }
-  bank = SEED.concat(custom);
+  bank = SEED.concat(remoteBank).concat(custom);
+}
+
+let remoteBank = [];
+async function loadRemoteBank(){
+  try {
+    const r = await fetch("bank-ec2024.json", { cache: "no-store" });
+    if (!r.ok) return 0;
+    const arr = await r.json();
+    if (!Array.isArray(arr)) return 0;
+    remoteBank = arr;
+    const c = JSON.parse(localStorage.getItem(LS_BANK) || "[]");
+    bank = SEED.concat(remoteBank).concat(c);
+    populateTopics(); renderStats(); renderTopics(); nextQ();
+    $("ver").textContent = "PYQ Loop v2 · bank " + bank.length + " Qs (" +
+      bank.filter(q=>q.verified).length + " verified) · " + remoteBank.length + " from GATE EC 2024";
+    return arr.length;
+  } catch(e){ return 0; }
 }
 function save(){
   localStorage.setItem(LS_PROG, JSON.stringify(prog));
@@ -400,33 +418,53 @@ function renderCard(){
   const el = $("card");
   if(!cur){ el.innerHTML = `<div class="empty">Nothing matches these filters.</div>`; return; }
   const q = cur, s = st(q.id), status = statusOf(q);
-  const opts = (q.options || []).map((o,i) => {
-    let cls = "opt", dis = "";
-    if(s.revealed){ dis = "disabled"; if(i === q.answer) cls += " right"; }
-    return `<button class="${cls}" data-i="${i}" ${dis}>${String.fromCharCode(65+i)}. ${mathHtml(o)}</button>`;
-  }).join("");
+  const qtype = q.qtype || "MCQ";
+  const letterOnly = (q.options || []).every((o, i) => String(o).trim() === "ABCD"[i]);
   const fig = q.image
-    ? `<div class="figure"><img src="${esc(q.image)}" alt="figure for this question" loading="lazy">${q.figCaption ? `<div class="hint">${esc(q.figCaption)}</div>` : ""}</div>`
+    ? `<div class="figure"><img src="${esc(q.image)}" alt="question image" loading="lazy">${q.figCaption ? `<div class="hint">${esc(q.figCaption)}</div>` : ""}</div>`
     : "";
+  let interactive = "";
+  if (qtype === "NAT") {
+    interactive = `<div class="opts">
+      <div class="row" style="margin-top:0">
+        <input id="natInput" type="number" step="any" inputmode="decimal" placeholder="Numerical answer" style="flex:1;min-width:150px">
+        <button id="btnNatCheck" class="primary">Check</button>
+      </div>
+      <div class="hint">${q.keyRaw ? "Accepted range (official key): " + esc(q.keyRaw) : ""}</div>
+    </div>`;
+  } else {
+    const multi = qtype === "MSQ";
+    const buttons = (q.options && q.options.length ? q.options : ["A","B","C","D"]).map((o, i) => {
+      let cls = "opt", dis = "";
+      if (s.revealed && !multi) { dis = "disabled"; if (i === q.answer) cls += " right"; }
+      const label = letterOnly ? String.fromCharCode(65 + i) : String.fromCharCode(65 + i) + ". " + mathHtml(o);
+      return `<button class="${cls}" data-i="${i}" ${dis}>${label}</button>`;
+    }).join("");
+    interactive = `<div class="opts">${buttons}</div>` +
+      (multi ? `<div class="row"><button id="btnMsqCheck" class="primary">Check selection</button><span class="hint">select all that apply</span></div>` : "");
+  }
   el.innerHTML = `
     <div class="meta">
       <span class="tag topic">${esc(q.topic)}</span>
       <span class="pill ${status}">${status.toUpperCase()}</span>
       <span class="tag ${q.verified ? "verified" : "unverified"}">${q.verified ? "verified source" : "UNVERIFIED — add official paper"}</span>
       <span>${esc(q.exam || "")}${q.year ? " · " + q.year : ""}${q.qno ? " · Q" + q.qno : ""}</span>
+      <span class="pill">${qtype}${q.marks ? " · " + q.marks + "m" : ""}</span>
     </div>
     <div class="q">${mathHtml(q.text)}</div>
     ${fig}
-    <div class="opts">${opts}</div>
+    ${interactive}
     <div class="row">
       <button id="btnUnknown" class="warn">Don't know → show solution</button>
       <button id="btnSkip">Skip</button>
     </div>
     <div class="sol ${s.revealed ? "show" : ""}" id="sol">
-      <h3>Solution</h3>
+      <h3>Official key</h3>
+      <div>${esc(q.keyRaw || (typeof q.answer === "number" ? "ABCD"[q.answer] : JSON.stringify(q.answer)))}</div>
+      <h3 style="margin-top:12px">Solution</h3>
       <div>${mathHtml(q.solution)}</div>
       <h3 style="margin-top:12px">Principle to repair</h3>
-      <div class="principle">${mathHtml(q.principle)}</div>
+      <div class="principle">${mathHtml(q.principle || "—")}</div>
       <div class="row">
         <span class="hint">Repair cap:</span> <span class="timer" id="tmr">20:00</span>
         <button id="btnStartTimer">Start 20-min repair</button>
@@ -437,7 +475,23 @@ function renderCard(){
     </div>
     <div class="hint" style="margin-top:10px">Source: ${esc(q.src || "—")} · attempts ${s.attempts||0} · correct ${s.correct||0}</div>
   `;
-  el.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(parseInt(b.dataset.i,10)));
+  const optBtns = [...el.querySelectorAll(".opt")];
+  if (qtype === "MSQ") {
+    optBtns.forEach(b => b.onclick = () => b.classList.toggle("sel"));
+    $("btnMsqCheck").onclick = () => {
+      const sel = optBtns.filter(b => b.classList.contains("sel")).map(b => parseInt(b.dataset.i, 10));
+      if (!sel.length) return;
+      gradeQuestion(sel);
+    };
+  } else if (qtype === "NAT") {
+    $("btnNatCheck").onclick = () => {
+      const v = parseFloat($("natInput").value);
+      if (Number.isNaN(v)) return;
+      gradeQuestion(v);
+    };
+  } else {
+    optBtns.forEach(b => b.onclick = () => gradeQuestion(parseInt(b.dataset.i, 10)));
+  }
   $("btnUnknown").onclick = reveal;
   $("btnSkip").onclick = nextQ;
   if(s.revealed && $("sol").classList.contains("show")) wireSolution();
@@ -470,9 +524,19 @@ function savePrinciple(){
   save(); renderPrinciples(); box.value = "";
 }
 
-function answer(i){
+function gradeQuestion(sel){
   const q = cur, s = st(q.id);
-  const correct = (i === q.answer);
+  const qt = q.qtype || "MCQ";
+  let correct = false;
+  if (qt === "MSQ") {
+    const a = [...sel].sort((x,y)=>x-y).join(","), b = [...q.answer].sort((x,y)=>x-y).join(",");
+    correct = a === b;
+  } else if (qt === "NAT") {
+    const [lo, hi] = q.answer;
+    correct = sel >= lo - 1e-9 && sel <= hi + 1e-9;
+  } else {
+    correct = sel === q.answer;
+  }
   s.attempts = (s.attempts||0) + 1;
   s.correct = (s.correct||0) + (correct ? 1 : 0);
   s.wrong = (s.wrong||0) + (correct ? 0 : 1);
@@ -726,6 +790,7 @@ load();
 populateTopics();
 renderStats(); renderTopics(); renderPrinciples();
 nextQ();
+loadRemoteBank();
 $("btnNext").onclick = nextQ;
 $("btnPick").onclick = pickRandom;
 $("fTopic").onchange = nextQ;

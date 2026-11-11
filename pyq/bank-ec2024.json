@@ -1,0 +1,1510 @@
+[
+ {
+  "id": "gate24-ec-q01",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 1,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q1 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q01.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.2; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q02",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 2,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q2 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q02.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.3; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q03",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 3,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q3 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q03.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q04",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 4,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q4 · Aptitude",
+  "image": "figs/ec2024-q04.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 2,
+  "keyRaw": "C",
+  "solution": "Put x = 2^a etc: 1/log2 x + 1/log3 x + 1/log4 x = log_x 2 + log_x 3 + log_x 4 = log_x 24. Set equal to 1 -> x = 24.",
+  "principle": "1/log_a x = log_x a. Sum of reciprocal logs = log of the product, base x.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.4; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q05",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 5,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q5 · Aptitude",
+  "image": "figs/ec2024-q05.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "3^199 - 3^196 = 3^196 (3^3 - 1) = 3^196 x 26 = 3^196 x 2 x 13. Greatest prime factor = 13.",
+  "principle": "Factor out the smallest power before looking for primes: a^m - a^n = a^n(a^(m-n) - 1).",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.5; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q06",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 6,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q6 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q06.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 2,
+  "keyRaw": "C",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.6; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q07",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 7,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q7 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q07.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 3,
+  "keyRaw": "D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.7; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q08",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 8,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q8 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q08.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 2,
+  "keyRaw": "C",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.8; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q09",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 9,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q9 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q09.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.9; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q10",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 10,
+  "topic": "Aptitude",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q10 · Aptitude  (read from the image)",
+  "image": "figs/ec2024-q10.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.10; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q11",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 11,
+  "topic": "Maths - Differential Equations",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q11 · Maths - Differential Equations  (read from the image)",
+  "image": "figs/ec2024-q11.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q12",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 12,
+  "topic": "Control",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q12 · Control",
+  "image": "figs/ec2024-q12.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "20 dB/decade = 6 dB/octave (an octave is a factor 2, and 20log10(2) = 6). So 40 dB/decade = 12 dB/octave.",
+  "principle": "dB/octave = dB/decade x log10(2) = dB/decade x 0.301.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.11; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q13",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 13,
+  "topic": "Control",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q13 · Control",
+  "image": "figs/ec2024-q13.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 3,
+  "keyRaw": "D",
+  "solution": "G(s) = 6/(s(s+1)(s+2)) is type-1, so the position error constant Kp = lim G(s) = infinity and steady-state error to a unit step is 1/(1+Kp) = 0.",
+  "principle": "Type-1 + step input -> zero steady-state error. Type-0 + step -> 1/(1+Kp); ramp needs Kv.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.12; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q15",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 15,
+  "topic": "EMFT",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q15 · EMFT  (read from the image)",
+  "image": "figs/ec2024-q15.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.14; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q16",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 16,
+  "topic": "Maths - Vector Calculus",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q16 · Maths - Vector Calculus  (read from the image)",
+  "image": "figs/ec2024-q16.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.15; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q17",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 17,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q17 · Analog  (read from the image)",
+  "image": "figs/ec2024-q17.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.16; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q18",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 18,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q18 · Analog  (read from the image)",
+  "image": "figs/ec2024-q18.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.17; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q19",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 19,
+  "topic": "Digital",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q19 · Digital  (read from the image)",
+  "image": "figs/ec2024-q19.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q20",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 20,
+  "topic": "Communication",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q20 · Communication  (read from the image)",
+  "image": "figs/ec2024-q20.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.18; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q21",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 21,
+  "topic": "Signals",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q21 · Signals  (read from the image)",
+  "image": "figs/ec2024-q21.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.19; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q22",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 22,
+  "topic": "Devices",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q22 · Devices  (read from the image)",
+  "image": "figs/ec2024-q22.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.20; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q23",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 23,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q23 · Analog  (read from the image)",
+  "image": "figs/ec2024-q23.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.21; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q24",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 24,
+  "topic": "Signals",
+  "qtype": "MSQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q24 · Signals  (read from the image)",
+  "image": "figs/ec2024-q24.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   2,
+   3
+  ],
+  "keyRaw": "A;C;D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.22; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q25",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 25,
+  "topic": "EMFT",
+  "qtype": "MSQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q25 · EMFT  (read from the image)",
+  "image": "figs/ec2024-q25.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   2
+  ],
+  "keyRaw": "A;C",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.23; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q26",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 26,
+  "topic": "Devices",
+  "qtype": "MSQ",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q26 · Devices  (read from the image)",
+  "image": "figs/ec2024-q26.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   1,
+   2
+  ],
+  "keyRaw": "A;B;C",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q27",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 27,
+  "topic": "Digital",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q27 · Digital",
+  "image": "figs/ec2024-q27.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   2047.0,
+   2047.0
+  ],
+  "keyRaw": "2047 to 2047",
+  "solution": "Field widths: 24 registers -> 5 bits each, three register fields = 15 bits; opcode for 40 instructions = 6 bits. Immediate = 32 - 15 - 6 = 11 bits. Max unsigned value = 2^11 - 1 = 2047.",
+  "principle": "Instruction encoding: bits left after opcode + register fields belong to the immediate. n bits unsigned -> 2^n - 1.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.24; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q28",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 28,
+  "topic": "Communication",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q28 · Communication  (read from the image)",
+  "image": "figs/ec2024-q28.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   2.49,
+   2.51
+  ],
+  "keyRaw": "2.49 to 2.51",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q29",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 29,
+  "topic": "Digital",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q29 · Digital",
+  "image": "figs/ec2024-q29.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   11.0,
+   11.0
+  ],
+  "keyRaw": "11 to 11",
+  "solution": "Interpret 12 and 37 as base-r numbers: 64 - (r+2)8 + (3r+7) = 0 -> 55 - 5r = 0 -> r = 11.",
+  "principle": "In base r, the numeral '12' means r+2 and '37' means 3r+7. Substitute and solve.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q30",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 30,
+  "topic": "Maths - Linear Algebra",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q30 · Maths - Linear Algebra  (read from the image)",
+  "image": "figs/ec2024-q30.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   5.0,
+   5.0
+  ],
+  "keyRaw": "5 to 5",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.25; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q31",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 31,
+  "topic": "Networks",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q31 · Networks  (read from the image)",
+  "image": "figs/ec2024-q31.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   2.0,
+   2.0
+  ],
+  "keyRaw": "2 to 2",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q32",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 32,
+  "topic": "Networks",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q32 · Networks  (read from the image)",
+  "image": "figs/ec2024-q32.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0.75,
+   0.75
+  ],
+  "keyRaw": "0.75 to 0.75",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q33",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 33,
+  "topic": "Maths - Probability",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q33 · Maths - Probability  (read from the image)",
+  "image": "figs/ec2024-q33.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0.5,
+   0.5
+  ],
+  "keyRaw": "0.50 to 0.50",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.26; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q34",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 34,
+  "topic": "Communication",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q34 · Communication",
+  "image": "figs/ec2024-q34.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   4.0,
+   4.0
+  ],
+  "keyRaw": "4 to 4",
+  "solution": "Maximum entropy of a source with 16 equally likely symbols is log2(16) = 4 bits/symbol.",
+  "principle": "Max entropy = log2(alphabet size), achieved only when symbols are equiprobable.",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q35",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 35,
+  "topic": "Networks",
+  "qtype": "NAT",
+  "marks": 1,
+  "text": "GATE EC 2024 · Q35 · Networks  (read from the image)",
+  "image": "figs/ec2024-q35.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0.25,
+   0.25
+  ],
+  "keyRaw": "0.250 to 0.250",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.27; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q36",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 36,
+  "topic": "Maths - Calculus",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q36 · Maths - Calculus  (read from the image)",
+  "image": "figs/ec2024-q36.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.28; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q37",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 37,
+  "topic": "Control",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q37 · Control  (read from the image)",
+  "image": "figs/ec2024-q37.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.29; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q38",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 38,
+  "topic": "Control",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q38 · Control  (read from the image)",
+  "image": "figs/ec2024-q38.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.30; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q39",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 39,
+  "topic": "EMFT",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q39 · EMFT  (read from the image)",
+  "image": "figs/ec2024-q39.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q40",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 40,
+  "topic": "Digital",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q40 · Digital  (read from the image)",
+  "image": "figs/ec2024-q40.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.31; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q41",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 41,
+  "topic": "Digital",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q41 · Digital  (read from the image)",
+  "image": "figs/ec2024-q41.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.32; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q42",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 42,
+  "topic": "Digital",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q42 · Digital  (read from the image)",
+  "image": "figs/ec2024-q42.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.33; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q43",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 43,
+  "topic": "Maths - Complex Analysis",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q43 · Maths - Complex Analysis  (read from the image)",
+  "image": "figs/ec2024-q43.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 3,
+  "keyRaw": "D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.34; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q45",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 45,
+  "topic": "Communication",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q45 · Communication  (read from the image)",
+  "image": "figs/ec2024-q45.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q46",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 46,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q46 · Analog  (read from the image)",
+  "image": "figs/ec2024-q46.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.36; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q47",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 47,
+  "topic": "Communication",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q47 · Communication  (read from the image)",
+  "image": "figs/ec2024-q47.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 0,
+  "keyRaw": "A",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q49",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 49,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q49 · Analog  (read from the image)",
+  "image": "figs/ec2024-q49.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 3,
+  "keyRaw": "D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.38; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q50",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 50,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q50 · Analog  (read from the image)",
+  "image": "figs/ec2024-q50.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.39; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q51",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 51,
+  "topic": "Analog",
+  "qtype": "MCQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q51 · Analog  (read from the image)",
+  "image": "figs/ec2024-q51.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": 1,
+  "keyRaw": "B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.40; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q52",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 52,
+  "topic": "Devices",
+  "qtype": "MSQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q52 · Devices  (read from the image)",
+  "image": "figs/ec2024-q52.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   2,
+   3
+  ],
+  "keyRaw": "A;C;D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.41; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q53",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 53,
+  "topic": "Control",
+  "qtype": "MSQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q53 · Control  (read from the image)",
+  "image": "figs/ec2024-q53.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   2
+  ],
+  "keyRaw": "A;C",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.42; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q54",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 54,
+  "topic": "Maths - Vector Calculus",
+  "qtype": "MSQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q54 · Maths - Vector Calculus  (read from the image)",
+  "image": "figs/ec2024-q54.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   1,
+   3
+  ],
+  "keyRaw": "A;B;D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.43; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q55",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 55,
+  "topic": "Maths - Linear Algebra",
+  "qtype": "MSQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q55 · Maths - Linear Algebra  (read from the image)",
+  "image": "figs/ec2024-q55.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "keyRaw": "A;B",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q56",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 56,
+  "topic": "Signals",
+  "qtype": "MSQ",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q56 · Signals  (read from the image)",
+  "image": "figs/ec2024-q56.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0,
+   3
+  ],
+  "keyRaw": "A;D OR A;C;D",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.44; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q57",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 57,
+  "topic": "Communication",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q57 · Communication  (read from the image)",
+  "image": "figs/ec2024-q57.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   45.0,
+   45.3
+  ],
+  "keyRaw": "45.00 to 45.30",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q58",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 58,
+  "topic": "EMFT",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q58 · EMFT  (read from the image)",
+  "image": "figs/ec2024-q58.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   200.0,
+   200.0
+  ],
+  "keyRaw": "200 to 200",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q59",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 59,
+  "topic": "Signals",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q59 · Signals  (read from the image)",
+  "image": "figs/ec2024-q59.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   112.0,
+   112.0
+  ],
+  "keyRaw": "112 to 112",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.45; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q60",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 60,
+  "topic": "Networks",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q60 · Networks  (read from the image)",
+  "image": "figs/ec2024-q60.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   1.5,
+   1.5
+  ],
+  "keyRaw": "1.5 to 1.5",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q61",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 61,
+  "topic": "Devices",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q61 · Devices  (read from the image)",
+  "image": "figs/ec2024-q61.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   4.1,
+   4.5
+  ],
+  "keyRaw": "4.10 to 4.50",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q62",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 62,
+  "topic": "Networks",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q62 · Networks  (read from the image)",
+  "image": "figs/ec2024-q62.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   2.5,
+   2.5
+  ],
+  "keyRaw": "2.5 to 2.5",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.46; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q63",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 63,
+  "topic": "Devices",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q63 · Devices  (read from the image)",
+  "image": "figs/ec2024-q63.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   0.17,
+   0.19
+  ],
+  "keyRaw": "0.17 to 0.19",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q64",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 64,
+  "topic": "Devices",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q64 · Devices  (read from the image)",
+  "image": "figs/ec2024-q64.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   52.4,
+   52.6
+  ],
+  "keyRaw": "52.40 to 52.60",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ },
+ {
+  "id": "gate24-ec-q65",
+  "exam": "GATE EC",
+  "year": 2024,
+  "qno": 65,
+  "topic": "Devices",
+  "qtype": "NAT",
+  "marks": 2,
+  "text": "GATE EC 2024 · Q65 · Devices  (read from the image)",
+  "image": "figs/ec2024-q65.png",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": [
+   4.0,
+   4.26
+  ],
+  "keyRaw": "4.00 to 4.26",
+  "solution": "Solution not written yet — send this question ID to the tutor.",
+  "principle": "",
+  "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
+  "verified": true
+ }
+]
