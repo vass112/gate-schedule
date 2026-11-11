@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f1216">
+<meta name="theme-color" content="#0b0e14">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,802 +12,1146 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<title>PYQ Loop — GATE EC question tracker</title>
+<title>PYQ Loop — GATE EC</title>
 <style>
   :root{
-    --bg:#0f1216; --panel:#161b22; --panel2:#1c232c; --line:#2a3341;
-    --txt:#e6edf3; --dim:#8b97a6; --acc:#4f9cf9; --ok:#2ea043; --warn:#d29922; --bad:#f85149;
+    color-scheme: dark;
+    --bg:#0b0e14;
+    --bg-elev:#11151d;
+    --bg-sunken:#0e121a;
+    --line:#1f2734;
+    --line-strong:#2c3646;
+    --txt:#e8edf5;
+    --txt-dim:#9aa7b8;
+    --txt-faint:#8794a6;
+    --accent:#6ea8fe;
+    --accent-ink:#06101f;
+    --ok:#3fb950;
+    --warn:#d9a441;
+    --bad:#f0685f;
+    --violet:#b493f5;
+    --r-sm:8px; --r-md:12px; --r-lg:16px;
+    --shadow:0 10px 30px -12px rgba(0,0,0,.7);
+    --pad:clamp(14px,3vw,22px);
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.55 -apple-system,Segoe UI,Roboto,sans-serif;
+  body{
+    margin:0;background:var(--bg);color:var(--txt);
+    font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-variant-numeric:tabular-nums;
     -webkit-tap-highlight-color:transparent;
-    padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
-  .wrap{max-width:900px;margin:0 auto;padding:16px 14px calc(64px + env(safe-area-inset-bottom))}
-  h1{font-size:20px;margin:0 0 2px}
-  .sub{color:var(--dim);font-size:12.5px;margin-bottom:14px}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-bottom:14px}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
-  .stat b{display:block;font-size:19px;line-height:1.2}
-  .stat span{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-  select,button,input,textarea{font:inherit;color:var(--txt);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
-  button{cursor:pointer;min-height:44px}
-  button:hover{border-color:#3d4b5c}
-  button.primary{background:var(--acc);border-color:var(--acc);color:#04121f;font-weight:600}
-  button.ok{background:var(--ok);border-color:var(--ok);color:#04120a;font-weight:600}
-  button.warn{background:var(--warn);border-color:var(--warn);color:#1a1200;font-weight:600}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
-  .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--dim);margin-bottom:10px}
-  .tag{border:1px solid var(--line);border-radius:99px;padding:1px 8px;font-size:11px}
-  .tag.topic{color:#8cc8ff;border-color:#2c4a68}
-  .tag.unverified{color:var(--warn);border-color:#5a4715}
-  .tag.verified{color:var(--ok);border-color:#245c33}
-  .q{font-size:17px;margin:2px 0 12px;white-space:pre-wrap}
-  .opts{display:grid;gap:9px}
-  .opt{text-align:left;padding:13px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;font-size:15.5px;min-height:50px}
-  .opt.right{border-color:var(--ok);background:#11251a}
-  .opt.wrong{border-color:var(--bad);background:#2a1416}
-  .opt.sel{border-color:var(--acc);background:#12202b;box-shadow:inset 0 0 0 1px var(--acc)}
-  .opt:disabled{opacity:.9;cursor:default}
-  .figure{margin:10px 0}
-  .figure img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff;display:block}
-  .figure .hint{margin-top:5px}
-  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  .sol{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
-  .sol.show{display:block}
-  .sol h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin:0 0 6px}
-  .principle{background:#12202b;border-left:3px solid var(--acc);padding:9px 11px;border-radius:6px;margin:8px 0;white-space:pre-wrap}
-  .timer{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700}
-  .timer.low{color:var(--bad)}
-  .hint{color:var(--dim);font-size:12.5px}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line)}
-  th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.4px}
-  .bar{height:7px;background:#222c37;border-radius:99px;overflow:hidden;min-width:60px}
-  .bar i{display:block;height:100%;background:var(--acc)}
-  section{margin-top:22px}
-  section > h2{font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:0 0 8px}
-  .principles li{margin-bottom:8px;font-size:13.5px}
-  .principles b{color:#8cc8ff;font-weight:600}
-  details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px}
-  summary{cursor:pointer;font-size:13.5px}
-  textarea{width:100%;min-height:100px;margin-top:8px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
-  .foot{color:var(--dim);font-size:11.5px;margin-top:26px;border-top:1px solid var(--line);padding-top:10px}
-  .pill{font-size:11px;border-radius:99px;padding:1px 7px;border:1px solid var(--line);color:var(--dim)}
-  .pill.new{color:#8cc8ff;border-color:#2c4a68}
-  .pill.unknown{color:var(--warn);border-color:#5a4715}
-  .pill.studied{color:#c9a7ff;border-color:#4b3a68}
-  .pill.mastered{color:var(--ok);border-color:#245c33}
-  .empty{color:var(--dim);text-align:center;padding:24px 6px;font-size:13.5px}
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  ::selection{background:rgba(110,168,254,.28)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer}
+  button:disabled{cursor:not-allowed}
+  a{color:var(--accent)}
+
+  .app{max-width:860px;margin:0 auto;padding:0 var(--pad) 96px}
+
+  /* ---------- header ---------- */
+  .bar{
+    position:sticky;top:0;z-index:30;background:rgba(11,14,20,.86);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+    margin:0 calc(-1 * var(--pad));padding:10px var(--pad) 0;
+  }
+  .bar-row{display:flex;align-items:center;gap:10px;min-height:38px}
+  .brand{font-size:15px;font-weight:650;letter-spacing:-.01em;margin:0;white-space:nowrap}
+  .brand span{color:var(--txt-faint);font-weight:450}
+  .grow{flex:1}
+  .sync-dot{
+    width:9px;height:9px;border-radius:50%;background:var(--txt-faint);
+    flex:0 0 auto;transition:background .2s, box-shadow .2s;
+  }
+  .sync-dot.on{background:var(--ok);box-shadow:0 0 0 3px rgba(63,185,80,.16)}
+  .sync-dot.err{background:var(--bad);box-shadow:0 0 0 3px rgba(240,104,95,.16)}
+  .sync-dot.busy{background:var(--warn);animation:pulse 1s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+
+  .tabs{display:flex;gap:2px;margin-top:6px}
+  .tab{
+    appearance:none;background:none;border:0;border-bottom:2px solid transparent;
+    color:var(--txt-dim);padding:9px 10px 10px;font-size:14px;font-weight:500;
+    display:inline-flex;align-items:center;gap:7px;transition:color .15s,border-color .15s;
+  }
+  .tab:hover{color:var(--txt)}
+  .tab[aria-selected="true"]{color:var(--txt);border-bottom-color:var(--accent)}
+  .count-pill{
+    font-size:11px;line-height:1;padding:3px 6px;border-radius:99px;
+    background:var(--bg-sunken);border:1px solid var(--line);color:var(--txt-dim);
+  }
+
+  /* ---------- controls ---------- */
+  .btn{
+    appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    min-height:42px;padding:0 14px;border-radius:10px;border:1px solid var(--line-strong);
+    background:var(--bg-elev);color:var(--txt);font-size:14.5px;font-weight:500;
+    transition:background .15s,border-color .15s,transform .08s,color .15s;
+  }
+  .btn:hover{background:#161c26;border-color:#39465a}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.45;transform:none}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:650}
+  .btn.primary:hover{background:#86b8ff;border-color:#86b8ff}
+  .btn.ghost{background:transparent}
+  .btn.ghost:hover{background:var(--bg-elev)}
+  .btn.warn{background:transparent;border-color:#4a3a1c;color:var(--warn)}
+  .btn.warn:hover{background:rgba(217,164,65,.09)}
+  .btn.ok{background:var(--ok);border-color:var(--ok);color:#04170a;font-weight:650}
+  .btn.sm{min-height:34px;padding:0 10px;font-size:13px;border-radius:8px}
+  .icon-btn{
+    width:38px;height:38px;min-height:38px;padding:0;border-radius:10px;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid transparent;background:transparent;color:var(--txt-dim);
+  }
+  .icon-btn:hover{background:var(--bg-elev);color:var(--txt)}
+  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+  select,input[type=text],input[type=number],textarea{
+    background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:10px;
+    padding:9px 11px;min-height:42px;color:var(--txt);transition:border-color .15s,background .15s;
+  }
+  select:hover,input:hover,textarea:hover{border-color:#39465a}
+  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(110,168,254,.15)}
+  input::placeholder,textarea::placeholder{color:var(--txt-faint)}
+  label.field{display:block;font-size:12px;color:var(--txt-dim);margin-bottom:5px;letter-spacing:.02em}
+
+  /* ---------- practice ---------- */
+  .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 10px}
+  .toolbar select{flex:1 1 130px;min-width:120px;font-size:13.5px;min-height:38px;padding:6px 9px}
+  @media (max-width:560px){
+    .toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .toolbar #fPaper{grid-column:1 / -1}
+    .toolbar select{min-width:0;width:100%}
+    .chip.paper{display:none}
+  }
+  .progressline{height:4px;background:var(--bg-sunken);border-radius:99px;overflow:hidden;margin:2px 0 14px}
+  .progressline > i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+
+  .qcard{
+    background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--r-lg);
+    padding:16px;box-shadow:var(--shadow);
+    animation:rise .22s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+  .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .chip{
+    font-size:11.5px;line-height:1.5;padding:2px 8px;border-radius:99px;
+    border:1px solid var(--line-strong);color:var(--txt-dim);white-space:nowrap;
+  }
+  .chip.topic{color:#9dc4ff;border-color:#2b466b;background:rgba(110,168,254,.07)}
+  .chip.verified{color:var(--ok);border-color:#24512f;background:rgba(63,185,80,.07)}
+  .chip.unverified{color:var(--warn);border-color:#4a3a1c;background:rgba(217,164,65,.07)}
+  .chip.type{color:var(--txt-dim);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+  .st{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+  .st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .st.new{color:var(--txt-faint)} .st.unknown{color:var(--warn)}
+  .st.studied{color:var(--violet)} .st.mastered{color:var(--ok)}
+
+  .qtext{font-size:15.5px;color:var(--txt-dim);margin:0 0 12px}
+  .figure{margin:0 0 14px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:#fff}
+  .figure img{display:block;width:100%;height:auto}
+  .figure figcaption{font-size:12px;color:var(--txt-faint);padding:6px 9px;background:var(--bg-sunken);border-top:1px solid var(--line)}
+
+  .opts{display:grid;gap:8px}
+  .opt{
+    appearance:none;text-align:left;display:flex;align-items:flex-start;gap:10px;
+    padding:12px 13px;border-radius:11px;border:1px solid var(--line-strong);
+    background:var(--bg-sunken);font-size:15px;line-height:1.45;
+    transition:background .14s,border-color .14s,transform .08s;
+  }
+  .opt:hover:not([disabled]){background:#141a24;border-color:#3b4a60}
+  .opt:active:not([disabled]){transform:translateY(1px)}
+  .opt[disabled]{opacity:.85;cursor:default}
+  .opt .letter{
+    flex:0 0 22px;height:22px;border-radius:6px;display:grid;place-items:center;
+    font-size:12px;font-weight:700;background:#1a222e;color:var(--txt-dim);border:1px solid var(--line-strong);
+  }
+  .opt.sel{border-color:var(--accent);background:rgba(110,168,254,.1)}
+  .opt.sel .letter{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .opt.correct{border-color:var(--ok);background:rgba(63,185,80,.12)}
+  .opt.correct .letter{background:var(--ok);color:#04170a;border-color:var(--ok)}
+  .opt.wrong{border-color:var(--bad);background:rgba(240,104,95,.12)}
+  .opt.wrong .letter{background:var(--bad);color:#1b0705;border-color:var(--bad)}
+
+  .nat{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nat input{flex:1 1 150px;font-size:16px}
+  .hint{font-size:12.5px;color:var(--txt-faint)}
+  .inline-feedback{font-size:13px;font-weight:600;margin-top:8px;min-height:18px}
+  .inline-feedback.good{color:var(--ok)}
+  .inline-feedback.bad{color:var(--bad)}
+
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .actions .btn{flex:1 1 auto}
+
+  /* solution */
+  .solution{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:none}
+  .solution.open{display:block;animation:rise .2s cubic-bezier(.22,1,.36,1) both}
+  .solution h4{
+    font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--txt-faint);
+    margin:0 0 6px;font-weight:650;
+  }
+  .solution h4 + div{margin-bottom:14px;font-size:14.5px}
+  .keyline{
+    display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;
+    background:var(--bg-sunken);border:1px solid var(--line-strong);font-size:13.5px;margin-bottom:12px;
+  }
+  .keyline b{font-size:15px}
+  .principle{
+    background:rgba(110,168,254,.07);border:1px solid #24374f;border-radius:10px;
+    padding:11px 12px;font-size:14px;margin-bottom:12px;
+  }
+  .repair{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .clock{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:15px;font-weight:650;
+    padding:6px 9px;border-radius:8px;background:var(--bg-sunken);border:1px solid var(--line-strong);
+  }
+  .clock.low{color:var(--bad);border-color:#4a2420}
+
+  /* bottom navigation */
+  .qnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:25;
+    background:rgba(11,14,20,.94);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);
+    padding:8px var(--pad) calc(8px + env(safe-area-inset-bottom));
+  }
+  .qnav-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:8px}
+  .qnav .navbtn{
+    min-height:44px;min-width:44px;padding:0 12px;border-radius:10px;
+    border:1px solid var(--line-strong);background:var(--bg-elev);display:inline-flex;align-items:center;gap:6px;
+  }
+  .qnav .navbtn[disabled]{opacity:.35}
+  .counter{
+    flex:1;text-align:center;font-size:13px;color:var(--txt-dim);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .counter b{color:var(--txt);font-weight:650}
+  .jump{width:64px;min-height:36px;text-align:center;padding:4px 6px;font-size:13.5px;border-radius:8px}
+
+  /* question map dialog */
+  dialog.map{
+    border:1px solid var(--line-strong);border-radius:16px;background:var(--bg-elev);color:var(--txt);
+    padding:16px;width:min(560px,92vw);box-shadow:0 30px 80px -20px #000;
+  }
+  dialog.map::backdrop{background:rgba(4,6,10,.66);backdrop-filter:blur(3px)}
+  .map-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .map-head h2{margin:0;font-size:15px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;max-height:52vh;overflow:auto;padding:2px}
+  .cell{
+    aspect-ratio:1;min-height:38px;border-radius:8px;border:1px solid var(--line-strong);
+    background:var(--bg-sunken);color:var(--txt-dim);font-size:12.5px;font-weight:600;
+    display:grid;place-items:center;transition:transform .1s,border-color .15s;
+  }
+  .cell:hover{border-color:var(--accent)}
+  .cell:active{transform:scale(.96)}
+  .cell[data-s="unknown"]{border-color:#4a3a1c;color:var(--warn)}
+  .cell[data-s="studied"]{border-color:#3f3260;color:var(--violet)}
+  .cell[data-s="mastered"]{border-color:#24512f;color:var(--ok);background:rgba(63,185,80,.1)}
+  .cell.active{outline:2px solid var(--accent);outline-offset:1px}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--txt-faint)}
+
+  /* ---------- progress / settings ---------- */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:16px 0}
+  .stat{background:var(--bg-elev);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .stat b{display:block;font-size:22px;line-height:1.15;letter-spacing:-.02em}
+  .stat span{font-size:11.5px;color:var(--txt-faint);text-transform:uppercase;letter-spacing:.07em}
+  .panel{background:var(--bg-elev);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--txt-faint);margin:0 0 10px;font-weight:650}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;table-layout:fixed}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-faint);text-align:left;font-weight:600;padding:6px 4px}
+  td{padding:7px 4px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+  td:first-child{width:auto}
+  th:nth-child(2),td:nth-child(2){width:58px}
+  th:nth-child(3),td:nth-child(3){width:36%}
+  th:nth-child(4),td:nth-child(4){width:44px;text-align:right}
+  @media (max-width:560px){
+    th:nth-child(4),td:nth-child(4){display:none}
+    th:nth-child(3),td:nth-child(3){width:32%}
+  }
+  .bar{height:6px;background:var(--bg-sunken);border-radius:99px;overflow:hidden;min-width:64px}
+  .bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+  ol.principles{margin:0;padding-left:18px}
+  ol.principles li{margin-bottom:9px;font-size:13.5px;line-height:1.5}
+  ol.principles b{color:#9dc4ff;font-weight:600}
+  .empty{padding:26px 6px;text-align:center;color:var(--txt-faint);font-size:14px}
+  details{background:var(--bg-elev);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  summary{padding:12px 14px;cursor:pointer;font-size:14px;font-weight:520;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"›";color:var(--txt-faint);transform:rotate(90deg);transition:transform .15s}
+  details[open] summary::after{transform:rotate(-90deg)}
+  details .body{padding:0 14px 14px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .row > input, .row > select{min-width:0;flex:1 1 170px}
+  input,textarea,select{max-width:100%}
+  textarea{resize:vertical}
+  .panel{overflow-wrap:anywhere}
+  .row.tight{margin-top:8px}
+  .status-inline{font-size:12.5px;color:var(--txt-faint)}
+  .status-inline.good{color:var(--ok)}
+  .status-inline.bad{color:var(--bad)}
+
+  /* toast */
+  .toast{
+    position:fixed;left:50%;transform:translate(-50%,16px);bottom:calc(74px + env(safe-area-inset-bottom));
+    background:#1b2330;border:1px solid var(--line-strong);color:var(--txt);
+    padding:10px 14px;border-radius:10px;font-size:13.5px;box-shadow:var(--shadow);
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:min(92vw,420px);
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  /* skeleton */
+  .skel{background:linear-gradient(90deg,#141a24 25%,#1a222e 37%,#141a24 63%);background-size:400% 100%;animation:shimmer 1.2s infinite linear;border-radius:8px}
+  @keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
+  .skel-line{height:14px;margin-bottom:9px}
+  .skel-img{height:180px;margin-bottom:12px}
+
+  @media (min-width:720px){
+    .qnav{left:50%;right:auto;transform:translateX(-50%);width:min(860px,100%);border-radius:14px 14px 0 0;border:1px solid var(--line);border-bottom:0}
+    .app{padding-bottom:110px}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>PYQ Loop — GATE EC</h1>
-  <div class="sub">Unknown → solution → 20-min repair → answer → next. Everything saved in this browser.</div>
+<div class="app">
 
-  <div id="installBar" class="card" style="display:none;padding:10px 12px;margin-bottom:12px">
-    <div style="font-size:13.5px">Add to home screen for offline use: browser menu → <b>Install app</b> / <b>Add to Home screen</b>.</div>
-  </div>
-
-  <div class="stats" id="stats"></div>
-
-  <div class="filters">
-    <select id="fTopic"><option value="">All topics</option></select>
-    <select id="fStatus">
-      <option value="">All statuses</option>
-      <option value="new">New</option>
-      <option value="unknown">Marked unknown</option>
-      <option value="studied">Studied (retry due)</option>
-      <option value="mastered">Mastered</option>
-    </select>
-    <button id="btnNext" class="primary">Next question ▸</button>
-    <button id="btnPick">Pick random</button>
-  </div>
-
-  <div class="card" id="card"></div>
-
-  <section>
-    <h2>Topic coverage</h2>
-    <table><thead><tr><th>Topic</th><th>Mastered</th><th style="width:34%">Progress</th><th>Qns</th></tr></thead>
-    <tbody id="topics"></tbody></table>
-  </section>
-
-  <section>
-    <h2>Principles repaired <span class="pill" id="prCount">0</span></h2>
-    <ol class="principles" id="principles"></ol>
-  </section>
-
-  <section>
-    <h2>Auto-sync (phone ⇄ laptop)</h2>
-    <div class="card" style="padding:12px">
-      <div class="hint" style="margin-bottom:8px">One private Gist is the shared store. Both devices read/write it automatically — no export, no import. Data is not sensitive; the token only has <b>gist</b> scope.</div>
-      <div class="row" style="margin-top:0">
-        <input id="syncToken" placeholder="GitHub token (gist scope)" style="flex:1;min-width:200px" autocomplete="off">
-        <button id="btnConnect" class="primary">Connect / create gist</button>
-      </div>
-      <div class="row">
-        <button id="btnPull">Sync now</button>
-        <button id="btnDisconnect">Turn sync off</button>
-        <span class="hint" id="syncStatus">not connected</span>
-      </div>
-      <details style="margin-top:10px">
-        <summary>First-time setup (2 minutes, do it once per device)</summary>
-        <ol class="hint" style="line-height:1.7;padding-left:18px">
-          <li>github.com → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token.</li>
-          <li>Name it <code>pyq-loop</code>, expiry 90 days, tick <b>only</b> the <code>gist</code> checkbox.</li>
-          <li>Paste the token above → <b>Connect / create gist</b>. That creates a private gist and uploads current progress.</li>
-          <li>On the other device: paste the <b>same token</b> → Connect. It finds the same gist and merges automatically.</li>
-        </ol>
-      </details>
+  <header class="bar">
+    <div class="bar-row">
+      <h1 class="brand">PYQ Loop <span>· GATE EC</span></h1>
+      <span class="grow"></span>
+      <span class="sync-dot" id="syncDot" title="Sync status"></span>
+      <button class="icon-btn" id="btnMapTop" title="Question map" aria-label="Question map">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </button>
     </div>
-  </section>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-view="practice">Practice</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="progress">Progress</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="settings">Settings</button>
+    </nav>
+  </header>
 
-  <section>
-    <h2>Tools</h2>
-    <details>
-      <summary>Add questions (paste JSON array)</summary>
-      <div class="hint">Each item: {exam, year, qno, topic, text, options:[..], answer:index, solution, principle, src, verified:true|false, image:"path or url"}. Use $...$ for math. Circuit diagrams go in <b>image</b>.</div>
-      <textarea id="addBox" placeholder='[{"exam":"GATE EC","year":2024,"qno":12,"topic":"Signals","text":"...","options":["A","B","C","D"],"answer":1,"solution":"...","principle":"...","src":"GATE EC 2024 Paper","verified":true}]'></textarea>
-      <div class="row"><button class="ok" id="btnAdd">Add to bank</button><span class="hint" id="addMsg"></span></div>
-    </details>
-    <details>
-      <summary>Export / import progress</summary>
-      <div class="row">
-        <button id="btnExport">Download progress JSON</button>
-        <button id="btnCopy">Copy progress to clipboard</button>
-      </div>
-      <textarea id="importBox" placeholder="Paste exported JSON here to restore"></textarea>
-      <div class="row"><button class="warn" id="btnImport">Restore from pasted JSON</button><span class="hint" id="impMsg"></span></div>
-    </details>
-    <details>
-      <summary>Reset</summary>
-      <div class="row"><button id="btnReset">Erase all progress (keeps questions)</button></div>
-    </details>
-  </section>
-
-  <div class="foot" id="ver"></div>
+  <main id="view"></main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </div>
 
+<nav class="qnav" id="qnav" hidden>
+  <div class="qnav-inner">
+    <button class="navbtn" id="btnPrev" aria-label="Previous question">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="counter">
+      <span><b id="cIdx">1</b> of <span id="cTotal">0</span></span>
+      <span style="color:var(--txt-faint)">|</span>
+      <input class="jump" id="jumpBox" type="number" min="1" inputmode="numeric" aria-label="Jump to question number">
+    </div>
+    <button class="navbtn" id="btnNext" aria-label="Next question">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</nav>
+
+<dialog class="map" id="mapDialog">
+  <div class="map-head">
+    <h2>Question map</h2>
+    <button class="btn sm ghost" id="btnMapClose">Close</button>
+  </div>
+  <div class="grid" id="mapGrid"></div>
+  <div class="legend">
+    <span class="st new">new</span><span class="st unknown">unknown</span>
+    <span class="st studied">studied</span><span class="st mastered">mastered</span>
+  </div>
+</dialog>
+
 <script>
-const LS_PROG = "pyqLoop.progress.v1";
-const LS_BANK = "pyqLoop.bank.v1";
-const LS_PRIN = "pyqLoop.principles.v1";
+/* ============ storage ============ */
+const LS_PROG="pyqLoop.progress.v1", LS_BANK="pyqLoop.bank.v1", LS_PRIN="pyqLoop.principles.v1", LS_SYNC="pyqLoop.sync.v1", LS_PREF="pyqLoop.pref.v1";
 
-const SEED = [
-  {id:"isro23-q2", exam:"ISRO SC ECE", year:2023, qno:2, topic:"Linear Algebra", verified:true,
-   src:"ISRO_SC_Electronics_2023.pdf, Part A Q2 (official)",
-   text:"Eigenvalues of a 3×3 matrix A are 1, 3 and 5. The eigenvalues of A³ are:",
-   options:["1, 3, 5","3, 9, 15","1, 27, 125","Given information is inadequate"],
-   answer:2,
-   solution:"If Av = λv then A³v = λ³v. Same eigenvectors, eigenvalues cubed: 1³=1, 3³=27, 5³=125.",
-   principle:"f(A) has eigenvalues f(λ) — same eigenvectors. Powers, polynomials, inverses all follow this."},
-  {id:"isro23-q95", exam:"ISRO SC ECE", year:2023, qno:95, topic:"Aptitude", verified:true,
-   src:"ISRO_SC_Electronics_2023.pdf, Part B Q95 (official)",
-   text:"What is the maximum area of a rectangle with perimeter 620 mm?",
-   options:["24025 mm²","22725 mm²","24000 mm²","24075 mm²"],
-   answer:0,
-   solution:"For fixed perimeter, area is maximum for a square: side = 620/4 = 155 mm, area = 155² = 24025 mm².",
-   principle:"Fixed perimeter → max area at square. Fixed area → min perimeter at square."},
-
-  {id:"drill-la-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Linear Algebra", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"A is a 4×4 matrix with rank 3. The nullity of A is:",
-   options:["0","1","3","4"],
-   answer:1,
-   solution:"Rank–nullity theorem: rank(A) + nullity(A) = n (number of columns). 3 + nullity = 4 → nullity = 1.",
-   principle:"rank + nullity = n, where n = number of columns. Not rows — columns."},
-  {id:"drill-la-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Linear Algebra", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"If A is a real orthogonal matrix, then det(A) equals:",
-   options:["0","1 only","±1","Any real number"],
-   answer:2,
-   solution:"AᵀA = I → det(AᵀA) = det(I) → det(A)² = 1 → det(A) = ±1.",
-   principle:"Orthogonal → det = ±1. Never expand; take det of both sides."},
-  {id:"drill-la-3", exam:"GATE EC pattern", year:null, qno:null, topic:"Linear Algebra", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"A 3×3 matrix has all row sums equal to zero. Then det(A) is:",
-   options:["1","0","Cannot be determined","Equal to trace(A)"],
-   answer:1,
-   solution:"Row sums zero means the vector (1,1,1)ᵀ lies in the null space, so A is singular and det(A) = 0.",
-   principle:"Rows summing to zero ⇒ (1,1,…,1) in null space ⇒ singular. Check before computing anything."},
-  {id:"drill-sig-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"For a signal band-limited to 5 kHz, the Nyquist sampling rate is:",
-   options:["2.5 kHz","5 kHz","10 kHz","20 kHz"],
-   answer:2,
-   solution:"Nyquist rate = 2 × f_max = 2 × 5 kHz = 10 kHz.",
-   principle:"Nyquist rate = 2f_max (samples/s). Nyquist interval = 1/(2f_max)."},
-  {id:"drill-sig-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"The trigonometric Fourier series of an even function of time contains:",
-   options:["Only sine terms","Only cosine terms (and DC)","Only DC","Both sine and cosine terms"],
-   answer:1,
-   solution:"Even f(−t)=f(t) ⇒ sine coefficients vanish (sine is odd). Only cosine terms and possibly DC remain.",
-   principle:"Even → cos only. Odd → sin only. Half-wave symmetry → odd harmonics only."},
-  {id:"drill-sig-3", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"∫ x(t)·δ(t − 2) dt over all t equals:",
-   options:["x(0)","x(2)","1","0"],
-   answer:1,
-   solution:"Sifting property: the impulse at t=2 samples the function at t=2.",
-   principle:"∫f(t)δ(t−a)dt = f(a). δ scales as δ(at) = δ(t)/|a|."},
-  {id:"drill-dig-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Digital", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"The number of select lines required for an 8:1 multiplexer is:",
-   options:["2","3","4","8"],
-   answer:1,
-   solution:"2^n = 8 → n = 3 select lines.",
-   principle:"MUX: n select lines for 2^n inputs. Decoder: n inputs for 2^n outputs."},
-  {id:"drill-dig-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Digital", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"The range of signed integers representable in 8-bit 2's complement is:",
-   options:["−127 to 127","−128 to 127","−128 to 128","0 to 255"],
-   answer:1,
-   solution:"n-bit 2's complement: −2^(n−1) to 2^(n−1) − 1. For n=8: −128 to 127.",
-   principle:"2's complement range: −2^(n−1) … 2^(n−1)−1. One extra negative value."},
-  {id:"drill-dig-3", exam:"GATE EC pattern", year:null, qno:null, topic:"Digital", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"Simplify: A + A′B =",
-   options:["A + B","A′+ B","AB","A′B′"],
-   answer:0,
-   solution:"A + A′B = (A + A′)(A + B) = A + B (absorption/consensus).",
-   principle:"A + A′B = A + B. Also A + AB = A, A·(A+B) = A."},
-  {id:"drill-ctrl-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Control", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"A type-1 system is given a unit step input. The steady-state error is:",
-   options:["0","1/Kv","∞","1/(1+Kp)"],
-   answer:0,
-   solution:"Type-1 has infinite DC gain in the loop for step input: Kp = ∞ → e_ss = 1/(1+Kp) = 0.",
-   principle:"Step error from Kp, ramp from Kv, parabola from Ka. Type-1: step error 0, ramp error 1/Kv."},
-  {id:"drill-ctrl-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Control", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"For $G(s) = \\dfrac{1}{s(s+1)}$, the high-frequency magnitude slope of the Bode plot is:",
-   options:["−20 dB/decade","−40 dB/decade","+20 dB/decade","0 dB/decade"],
-   answer:1,
-   solution:"One pole at origin (−20) plus one simple pole (−20) → −40 dB/decade at high frequency.",
-   principle:"Each pole −20 dB/dec, each zero +20 dB/dec. A pole at origin also gives −90° phase."},
-  {id:"drill-comm-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Communication", verified:false,
-   src:"pattern drill — replace with official paper",
-   text:"For an AM wave with modulation index m, the total power relative to carrier power Pc is:",
-   options:["Pc(1 + m)","Pc(1 + m²/2)","Pc(1 + m²)","Pc·m²/2"],
-   answer:1,
-   solution:"P_total = Pc + P_sidebands = Pc(1 + m²/2) for single-tone AM.",
-   principle:"P_total = Pc(1 + m²/2); sideband power fraction = m²/(2+m²)."}
+const PAPERS = [
+  { id:"ec2024", label:"GATE EC 2024", file:"bank-ec2024.json", count:62 }
 ];
 
-let bank = [];
-let prog = {};
-let principles = [];
-let cur = null;
+const SEED = [
+  {id:"isro23-q2", exam:"ISRO SC ECE", year:2023, qno:2, topic:"Maths - Linear Algebra", qtype:"MCQ", verified:true,
+   src:"ISRO_SC_Electronics_2023.pdf, Part A Q2 (official)", keyRaw:"C",
+   text:"Eigenvalues of a 3×3 matrix A are 1, 3 and 5. The eigenvalues of A³ are:",
+   options:["1, 3, 5","3, 9, 15","1, 27, 125","Given information is inadequate"], answer:2,
+   solution:"If Av = λv then A³v = λ³v: same eigenvectors, eigenvalues cubed → 1, 27, 125.",
+   principle:"f(A) has eigenvalues f(λ) with the same eigenvectors. Powers, polynomials and inverses all follow this."},
+  {id:"isro23-q95", exam:"ISRO SC ECE", year:2023, qno:95, topic:"Aptitude", qtype:"MCQ", verified:true,
+   src:"ISRO_SC_Electronics_2023.pdf, Part B Q95 (official)", keyRaw:"A",
+   text:"What is the maximum area of a rectangle with perimeter 620 mm?",
+   options:["24025 mm²","22725 mm²","24000 mm²","24075 mm²"], answer:0,
+   solution:"Fixed perimeter → maximum area at a square: side = 620/4 = 155 mm, area = 155² = 24025 mm².",
+   principle:"Fixed perimeter → max area at the square. Fixed area → min perimeter at the square."},
+  {id:"drill-la-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Maths - Linear Algebra", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"A is a 4×4 matrix with rank 3. The nullity of A is:",
+   options:["0","1","3","4"], answer:1,
+   solution:"Rank–nullity: rank(A) + nullity(A) = n (columns) → 3 + nullity = 4 → nullity = 1.",
+   principle:"rank + nullity = n, where n = number of columns."},
+  {id:"drill-la-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Maths - Linear Algebra", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"C",
+   text:"If A is a real orthogonal matrix, then det(A) equals:",
+   options:["0","1 only","±1","Any real number"], answer:2,
+   solution:"AᵀA = I → det(AᵀA) = det(I) → det(A)² = 1 → det(A) = ±1.",
+   principle:"Orthogonal → det = ±1. Take det of both sides instead of expanding."},
+  {id:"drill-sig-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"C",
+   text:"For a signal band-limited to 5 kHz, the Nyquist sampling rate is:",
+   options:["2.5 kHz","5 kHz","10 kHz","20 kHz"], answer:2,
+   solution:"Nyquist rate = 2 f_max = 2 × 5 kHz = 10 kHz.",
+   principle:"Nyquist rate = 2f_max; Nyquist interval = 1/(2f_max)."},
+  {id:"drill-sig-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"The trigonometric Fourier series of an even function of time contains:",
+   options:["Only sine terms","Only cosine terms (and DC)","Only DC","Both sine and cosine terms"], answer:1,
+   solution:"Even f(−t)=f(t) kills the sine coefficients (odd). Only cosine terms and possibly DC remain.",
+   principle:"Even → cos only. Odd → sin only. Half-wave symmetry → odd harmonics only."},
+  {id:"drill-sig-3", exam:"GATE EC pattern", year:null, qno:null, topic:"Signals", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"∫ x(t)·δ(t − 2) dt over all t equals:",
+   options:["x(0)","x(2)","1","0"], answer:1,
+   solution:"Sifting property: the impulse at t = 2 samples the function at t = 2.",
+   principle:"∫f(t)δ(t−a)dt = f(a); δ(at) = δ(t)/|a|."},
+  {id:"drill-dig-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Digital", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"The number of select lines required for an 8:1 multiplexer is:",
+   options:["2","3","4","8"], answer:1,
+   solution:"2^n = 8 → n = 3 select lines.",
+   principle:"MUX: n select lines for 2^n inputs. Decoder: n inputs for 2^n outputs."},
+  {id:"drill-dig-2", exam:"GATE EC pattern", year:null, qno:null, topic:"Digital", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"The range of signed integers representable in 8-bit 2's complement is:",
+   options:["−127 to 127","−128 to 127","−128 to 128","0 to 255"], answer:1,
+   solution:"n-bit 2's complement: −2^(n−1) … 2^(n−1) − 1 → −128 … 127.",
+   principle:"2's complement range is asymmetric: one extra negative value."},
+  {id:"drill-ctrl-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Control", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"A",
+   text:"A type-1 system is given a unit step input. The steady-state error is:",
+   options:["0","1/Kv","∞","1/(1+Kp)"], answer:0,
+   solution:"Type-1 has Kp = ∞ → e_ss = 1/(1+Kp) = 0 for a step.",
+   principle:"Step error from Kp, ramp from Kv, parabola from Ka. Type-1: step error 0, ramp error 1/Kv."},
+  {id:"drill-comm-1", exam:"GATE EC pattern", year:null, qno:null, topic:"Communication", qtype:"MCQ", verified:false,
+   src:"pattern drill — replace with official paper", keyRaw:"B",
+   text:"For an AM wave with modulation index m, total power relative to carrier power Pc is:",
+   options:["Pc(1 + m)","Pc(1 + m²/2)","Pc(1 + m²)","Pc·m²/2"], answer:1,
+   solution:"P_total = Pc + sidebands = Pc(1 + m²/2) for single-tone AM.",
+   principle:"P_total = Pc(1 + m²/2); sideband fraction = m²/(2+m²)."}
+];
+
+/* ============ state ============ */
+let prog = {}, principles = [], customBank = [], remoteBank = [], bank = [];
+let view = "practice";
+let filters = { paper:"ec2024", topic:"", status:"" };
+let order = [], idx = 0, cur = null;
 let timerId = null, timerEnd = 0, timerLeft = 0;
+let pushing = false, pushTimer = null;
+let bankLoaded = false;
+let sync = { mode:"off", token:"", gistId:"", lastSync:0 };
 
 const $ = id => document.getElementById(id);
-const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-// Renders $...$ / $$...$$ / \(...\) with KaTeX when available, escapes the rest.
 function mathHtml(s){
   const raw = String(s == null ? "" : s);
-  if(!(window.katex && window.katex.renderToString)) return esc(raw).replace(/\n/g, "<br>");
-  const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$|\\\([\s\S]+?\\\))/g);
+  if(!(window.katex && window.katex.renderToString)) return esc(raw).replace(/\n/g,"<br>");
+  const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g);
   return parts.map(p => {
-    try {
+    try{
       if(/^\$\$[\s\S]+\$\$$/.test(p)) return katex.renderToString(p.slice(2,-2), {displayMode:true, throwOnError:false});
       if(/^\$[^$\n]+\$$/.test(p)) return katex.renderToString(p.slice(1,-1), {throwOnError:false});
-      if(/^\\\([\s\S]+\\\)$/.test(p)) return katex.renderToString(p.slice(2,-2), {throwOnError:false});
-    } catch(e){ /* fall through to plain */ }
-    return esc(p).replace(/\n/g, "<br>");
+    }catch(e){}
+    return esc(p).replace(/\n/g,"<br>");
   }).join("");
 }
 
-function load(){
-  try { prog = JSON.parse(localStorage.getItem(LS_PROG) || "{}"); } catch(e){ prog = {}; }
-  try { principles = JSON.parse(localStorage.getItem(LS_PRIN) || "[]"); } catch(e){ principles = []; }
-  let custom = [];
-  try { custom = JSON.parse(localStorage.getItem(LS_BANK) || "[]"); } catch(e){ custom = []; }
-  bank = SEED.concat(remoteBank).concat(custom);
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-let remoteBank = [];
-async function loadRemoteBank(){
-  try {
-    const r = await fetch("bank-ec2024.json", { cache: "no-store" });
-    if (!r.ok) return 0;
-    const arr = await r.json();
-    if (!Array.isArray(arr)) return 0;
-    remoteBank = arr;
-    const c = JSON.parse(localStorage.getItem(LS_BANK) || "[]");
-    bank = SEED.concat(remoteBank).concat(c);
-    populateTopics(); renderStats(); renderTopics(); nextQ();
-    $("ver").textContent = "PYQ Loop v2 · bank " + bank.length + " Qs (" +
-      bank.filter(q=>q.verified).length + " verified) · " + remoteBank.length + " from GATE EC 2024";
-    return arr.length;
-  } catch(e){ return 0; }
+function loadLocal(){
+  try{ prog = JSON.parse(localStorage.getItem(LS_PROG) || "{}"); }catch(e){ prog = {}; }
+  try{ principles = JSON.parse(localStorage.getItem(LS_PRIN) || "[]"); }catch(e){ principles = []; }
+  try{ customBank = JSON.parse(localStorage.getItem(LS_BANK) || "[]"); }catch(e){ customBank = []; }
+  try{ const p = JSON.parse(localStorage.getItem(LS_PREF) || "{}"); if(p.filters) filters = Object.assign(filters, p.filters); }catch(e){}
+  rebuildBank();
 }
-function save(){
+function persist(){
   localStorage.setItem(LS_PROG, JSON.stringify(prog));
   localStorage.setItem(LS_PRIN, JSON.stringify(principles));
+  localStorage.setItem(LS_PREF, JSON.stringify({filters}));
   schedulePush();
 }
+function rebuildBank(){ bank = SEED.concat(remoteBank).concat(customBank); }
+
 function st(id){
-  if(!prog[id]) prog[id] = {status:"new", attempts:0, wrong:0};
+  if(!prog[id]) prog[id] = {status:"new", attempts:0, correct:0, wrong:0, revealed:false};
   return prog[id];
 }
 function statusOf(q){
   const s = st(q.id);
-  if(s.status === "studied" && s.attempts > 0 && s.lastCorrect) return "mastered";
-  return s.status;
+  if(s.status === "studied" && s.lastCorrect) return "mastered";
+  return s.status || "new";
 }
 
-function renderStats(){
-  const qs = bank;
-  const mastered = qs.filter(q => statusOf(q) === "mastered").length;
-  const unknown = qs.filter(q => statusOf(q) === "unknown").length;
-  const studied = qs.filter(q => statusOf(q) === "studied").length;
-  const attempted = Object.values(prog).reduce((a,s)=>a + (s.attempts||0), 0);
-  const correct = Object.values(prog).reduce((a,s)=>a + (s.correct||0), 0);
-  const acc = attempted ? Math.round(100*correct/attempted) : 0;
-  const items = [
-    ["Bank", qs.length],
-    ["Mastered", mastered],
-    ["Unknown", unknown],
-    ["Retry due", studied],
-    ["Accuracy", acc + "%"]
-  ];
-  $("stats").innerHTML = items.map(([k,v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
+/* ============ filtering + navigation ============ */
+function paperQuestions(){
+  if(filters.paper === "all") return bank;
+  const p = PAPERS.find(x => x.id === filters.paper);
+  if(!p) return bank;
+  return bank.filter(q => q.paper === filters.paper || (q.year === 2024 && /GATE EC/.test(q.exam)));
 }
-
-function renderTopics(){
-  const map = {};
-  bank.forEach(q => {
-    const t = q.topic || "Other";
-    if(!map[t]) map[t] = {total:0, done:0};
-    map[t].total++;
-    if(statusOf(q) === "mastered") map[t].done++;
-  });
-  const rows = Object.keys(map).sort().map(t => {
-    const d = map[t], pct = Math.round(100*d.done/d.total);
-    return `<tr><td>${esc(t)}</td><td>${d.done}/${d.total}</td>
-      <td><div class="bar"><i style="width:${pct}%"></i></div></td><td>${pct}%</td></tr>`;
-  }).join("");
-  $("topics").innerHTML = rows || `<tr><td colspan="4" class="empty">No topics yet</td></tr>`;
-}
-
-function renderPrinciples(){
-  $("prCount").textContent = principles.length;
-  $("principles").innerHTML = principles.length
-    ? principles.slice().reverse().map(p => `<li><b>${esc(p.topic)}</b> — ${esc(p.text)} <span class="hint">${esc(p.date)}</span></li>`).join("")
-    : `<li class="hint">Empty. Each repaired principle gets stored here.</li>`;
-}
-
-function populateTopics(){
-  const set = [...new Set(bank.map(q => q.topic))].sort();
-  $("fTopic").innerHTML = `<option value="">All topics</option>` + set.map(t => `<option>${esc(t)}</option>`).join("");
-}
-
 function filtered(){
-  const t = $("fTopic").value, s = $("fStatus").value;
-  return bank.filter(q => {
-    if(t && q.topic !== t) return false;
-    if(s && statusOf(q) !== s) return false;
-    return true;
-  });
+  let list = paperQuestions();
+  if(filters.topic) list = list.filter(q => q.topic === filters.topic);
+  if(filters.status) list = list.filter(q => statusOf(q) === filters.status);
+  return list;
+}
+function rebuildOrder(keepId){
+  order = filtered();
+  const at = order.findIndex(q => q.id === keepId);
+  idx = at >= 0 ? at : Math.min(idx, Math.max(0, order.length - 1));
+  cur = order[idx] || null;
+}
+function go(delta){
+  if(!order.length) return;
+  const n = idx + delta;
+  if(n < 0 || n >= order.length) return;
+  idx = n; cur = order[idx]; renderPractice(true);
+}
+function jumpTo(n){
+  if(!order.length) return;
+  const i = Math.max(0, Math.min(order.length - 1, n - 1));
+  idx = i; cur = order[i]; renderPractice(true);
 }
 
-function nextQ(){
+/* ============ views ============ */
+function render(){
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.view === view)));
+  if(view === "practice") renderPractice(false);
+  if(view === "progress") renderProgress();
+  if(view === "settings") renderSettings();
+}
+
+function skeleton(){
+  return `<div class="qcard">
+    <div class="chips"><span class="skel" style="width:90px;height:20px"></span><span class="skel" style="width:60px;height:20px"></span></div>
+    <div class="skel skel-img"></div>
+    <div class="skel skel-line" style="width:80%"></div>
+    <div class="skel skel-line" style="width:60%"></div>
+  </div>`;
+}
+
+function renderPractice(animate){
+  const all = paperQuestions();
   const list = filtered();
-  if(!list.length){ cur = null; renderCard(); return; }
-  // priority: unknown first, then new, then studied (retry), then mastered
-  const rank = {unknown:0, new:1, studied:2, mastered:3};
-  list.sort((a,b) => rank[statusOf(a)] - rank[statusOf(b)]);
-  const firstRank = rank[statusOf(list[0])];
-  const pool = list.filter(q => rank[statusOf(q)] === firstRank);
-  cur = pool[Math.floor(Math.random()*pool.length)];
-  renderCard();
-}
+  rebuildOrder(cur && cur.id);
+  const topics = [...new Set(all.map(q => q.topic))].sort();
+  const done = all.filter(q => statusOf(q) === "mastered").length;
+  const pct = all.length ? Math.round(100 * done / all.length) : 0;
 
-function pickRandom(){
-  const list = filtered();
-  if(!list.length){ cur = null; renderCard(); return; }
-  cur = list[Math.floor(Math.random()*list.length)];
-  renderCard();
-}
+  const vet = `
+    <div class="toolbar">
+      <select id="fPaper" aria-label="Paper">
+        ${PAPERS.map(p => `<option value="${p.id}" ${filters.paper===p.id?"selected":""}>${esc(p.label)} · ${p.count} Qs</option>`).join("")}
+        <option value="all" ${filters.paper==="all"?"selected":""}>All papers · ${bank.length} Qs</option>
+      </select>
+      <select id="fTopic" aria-label="Topic">
+        <option value="">All topics</option>
+        ${topics.map(t => `<option ${filters.topic===t?"selected":""}>${esc(t)}</option>`).join("")}
+      </select>
+      <select id="fStatus" aria-label="Status">
+        <option value="">Any status</option>
+        ${["new","unknown","studied","mastered"].map(s => `<option value="${s}" ${filters.status===s?"selected":""}>${s[0].toUpperCase()+s.slice(1)}</option>`).join("")}
+      </select>
+    </div>
+    <div class="progressline" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
 
-function renderCard(){
-  const el = $("card");
-  if(!cur){ el.innerHTML = `<div class="empty">Nothing matches these filters.</div>`; return; }
+  if(!bankLoaded && filters.paper !== "all"){
+    $("view").innerHTML = vet + skeleton();
+    wireToolbar();
+    return;
+  }
+  if(!cur){
+    const noBank = !remoteBank.length && filters.paper !== "all";
+    $("view").innerHTML = vet + `<div class="qcard"><div class="empty">
+      ${noBank ? "Question bank didn't load — check the connection, then retry." :
+        (list.length ? "No question matches these filters." : "No questions in this paper yet.")}<br>
+      <span class="hint">${noBank ? "" : "Try clearing the topic or status filter."}</span>
+      ${noBank ? `<div class="row" style="justify-content:center;margin-top:12px"><button class="btn sm primary" id="btnRetry">Retry</button></div>` : ""}
+    </div></div>`;
+    $("qnav").hidden = true;
+    wireToolbar();
+    const r = $("btnRetry"); if(r) r.onclick = async () => { remoteBank = []; await loadRemoteBank(); render(); };
+    return;
+  }
+
   const q = cur, s = st(q.id), status = statusOf(q);
   const qtype = q.qtype || "MCQ";
-  const letterOnly = (q.options || []).every((o, i) => String(o).trim() === "ABCD"[i]);
-  const fig = q.image
-    ? `<div class="figure"><img src="${esc(q.image)}" alt="question image" loading="lazy">${q.figCaption ? `<div class="hint">${esc(q.figCaption)}</div>` : ""}</div>`
-    : "";
+  const letterOnly = (q.options || []).every((o,i) => String(o).trim() === "ABCD"[i]);
+  const solved = (q.solution || "").indexOf("not written yet") === -1;
+
+  const fig = q.image ? `<figure class="figure">
+      <img src="${esc(q.image)}" alt="Question ${esc(q.qno || "")} from ${esc(q.exam || "paper")} ${esc(q.year || "")}">
+      <figcaption>${esc(q.exam || "Paper")} ${q.year ? "· " + esc(q.year) : ""}${q.qno ? " · Q" + esc(q.qno) : ""}${q.marks ? " · " + esc(q.marks) + " mark" + (q.marks > 1 ? "s" : "") : ""}</figcaption>
+    </figure>` : "";
+
   let interactive = "";
-  if (qtype === "NAT") {
-    interactive = `<div class="opts">
-      <div class="row" style="margin-top:0">
-        <input id="natInput" type="number" step="any" inputmode="decimal" placeholder="Numerical answer" style="flex:1;min-width:150px">
-        <button id="btnNatCheck" class="primary">Check</button>
+  if(qtype === "NAT"){
+    interactive = `<div class="nat">
+        <input id="natInput" type="number" step="any" inputmode="decimal" placeholder="Numerical answer" aria-label="Your numerical answer">
+        <button class="btn primary" id="btnNat">Check</button>
       </div>
-      <div class="hint">${q.keyRaw ? "Accepted range (official key): " + esc(q.keyRaw) : ""}</div>
-    </div>`;
+      <div class="hint" style="margin-top:6px">${q.keyRaw ? "Accepted range: " + esc(q.keyRaw) : ""}</div>
+      <div class="inline-feedback" id="fb"></div>`;
   } else {
     const multi = qtype === "MSQ";
-    const buttons = (q.options && q.options.length ? q.options : ["A","B","C","D"]).map((o, i) => {
-      let cls = "opt", dis = "";
-      if (s.revealed && !multi) { dis = "disabled"; if (i === q.answer) cls += " right"; }
-      const label = letterOnly ? String.fromCharCode(65 + i) : String.fromCharCode(65 + i) + ". " + mathHtml(o);
-      return `<button class="${cls}" data-i="${i}" ${dis}>${label}</button>`;
-    }).join("");
-    interactive = `<div class="opts">${buttons}</div>` +
-      (multi ? `<div class="row"><button id="btnMsqCheck" class="primary">Check selection</button><span class="hint">select all that apply</span></div>` : "");
-  }
-  el.innerHTML = `
-    <div class="meta">
-      <span class="tag topic">${esc(q.topic)}</span>
-      <span class="pill ${status}">${status.toUpperCase()}</span>
-      <span class="tag ${q.verified ? "verified" : "unverified"}">${q.verified ? "verified source" : "UNVERIFIED — add official paper"}</span>
-      <span>${esc(q.exam || "")}${q.year ? " · " + q.year : ""}${q.qno ? " · Q" + q.qno : ""}</span>
-      <span class="pill">${qtype}${q.marks ? " · " + q.marks + "m" : ""}</span>
-    </div>
-    <div class="q">${mathHtml(q.text)}</div>
-    ${fig}
-    ${interactive}
-    <div class="row">
-      <button id="btnUnknown" class="warn">Don't know → show solution</button>
-      <button id="btnSkip">Skip</button>
-    </div>
-    <div class="sol ${s.revealed ? "show" : ""}" id="sol">
-      <h3>Official key</h3>
-      <div>${esc(q.keyRaw || (typeof q.answer === "number" ? "ABCD"[q.answer] : JSON.stringify(q.answer)))}</div>
-      <h3 style="margin-top:12px">Solution</h3>
-      <div>${mathHtml(q.solution)}</div>
-      <h3 style="margin-top:12px">Principle to repair</h3>
-      <div class="principle">${mathHtml(q.principle || "—")}</div>
-      <div class="row">
-        <span class="hint">Repair cap:</span> <span class="timer" id="tmr">20:00</span>
-        <button id="btnStartTimer">Start 20-min repair</button>
-        <button id="btnStudied" class="ok">Studied → answer now</button>
+    interactive = `<div class="opts" role="group" aria-label="Options">
+      ${(q.options && q.options.length ? q.options : ["A","B","C","D"]).map((o,i) => `
+        <button class="opt" data-i="${i}" ${s.revealed && !multi ? "disabled" : ""}>
+          <span class="letter">${"ABCD"[i]}</span>
+          <span>${letterOnly ? "" : mathHtml(o)}</span>
+        </button>`).join("")}
       </div>
-      <div class="row"><input id="prText" placeholder="Type the principle in your own words (stored)" style="flex:1;min-width:220px">
-        <button id="btnSavePr">Save principle</button></div>
-    </div>
-    <div class="hint" style="margin-top:10px">Source: ${esc(q.src || "—")} · attempts ${s.attempts||0} · correct ${s.correct||0}</div>
-  `;
-  const optBtns = [...el.querySelectorAll(".opt")];
-  if (qtype === "MSQ") {
-    optBtns.forEach(b => b.onclick = () => b.classList.toggle("sel"));
-    $("btnMsqCheck").onclick = () => {
-      const sel = optBtns.filter(b => b.classList.contains("sel")).map(b => parseInt(b.dataset.i, 10));
-      if (!sel.length) return;
-      gradeQuestion(sel);
-    };
-  } else if (qtype === "NAT") {
-    $("btnNatCheck").onclick = () => {
-      const v = parseFloat($("natInput").value);
-      if (Number.isNaN(v)) return;
-      gradeQuestion(v);
-    };
-  } else {
-    optBtns.forEach(b => b.onclick = () => gradeQuestion(parseInt(b.dataset.i, 10)));
+      ${multi ? `<div class="row tight"><button class="btn primary" id="btnMsq">Check selection</button><span class="hint">select all that apply</span></div>` : ""}
+      <div class="inline-feedback" id="fb"></div>`;
   }
-  $("btnUnknown").onclick = reveal;
-  $("btnSkip").onclick = nextQ;
-  if(s.revealed && $("sol").classList.contains("show")) wireSolution();
+
+  $("view").innerHTML = `
+    ${vet}
+    <article class="qcard" ${animate ? "" : ""}>
+      <div class="chips">
+        <span class="chip topic">${esc(q.topic)}</span>
+        <span class="st ${status}">${status}</span>
+        <span class="chip ${q.verified ? "verified" : "unverified"}">${q.verified ? "official" : "unverified"}</span>
+        <span class="chip type">${qtype}${q.marks ? " · " + q.marks + "m" : ""}</span>
+        <span class="grow"></span>
+        <span class="chip paper">${esc(q.exam || "")} ${q.year ? "· " + q.year : ""}${q.qno ? " · Q" + q.qno : ""}</span>
+      </div>
+      ${(!letterOnly && q.text) ? `<p class="qtext">${mathHtml(q.text)}</p>` : ""}
+      ${fig}
+      ${(letterOnly && q.image) ? `<p class="hint" style="margin:-6px 0 12px">Options are in the image — tap the letter below.</p>` : ""}
+      ${interactive}
+      <div class="actions">
+        <button class="btn warn" id="btnUnknown">Don't know → solution</button>
+        <button class="btn ghost" id="btnSkip">Skip</button>
+      </div>
+      <section class="solution ${s.revealed ? "open" : ""}" id="sol" aria-live="polite">
+        <h4>Official key</h4>
+        <div class="keyline"><b>${esc(q.keyRaw || (typeof q.answer === "number" ? "ABCD"[q.answer] : JSON.stringify(q.answer)))}</b><span class="hint">${qtype === "NAT" ? "accepted range" : qtype === "MSQ" ? "all of these" : "single answer"}</span></div>
+        <h4>Solution</h4>
+        <div>${solved ? mathHtml(q.solution) : `<span class="hint">Not written yet. Question ID <b>${esc(q.id)}</b> — paste it in the chat and the solution gets written.</span>`}</div>
+        <h4>Principle</h4>
+        <div class="principle">${q.principle ? mathHtml(q.principle) : "—"}</div>
+        <div class="repair">
+          <span class="clock" id="clock">20:00</span>
+          <button class="btn sm" id="btnTimer">Start 20-min repair</button>
+          <button class="btn sm ok" id="btnStudied">Studied → answer now</button>
+        </div>
+        <div class="row">
+          <input type="text" id="prText" placeholder="Your words for the principle (saved)" style="flex:1 1 220px">
+          <button class="btn sm" id="btnSavePr">Save principle</button>
+        </div>
+        <p class="hint" style="margin:12px 0 0">Source: ${esc(q.src || "—")} · attempts ${s.attempts || 0} · correct ${s.correct || 0}</p>
+      </section>
+    </article>`;
+
+  wireToolbar();
+  wireCard(q, s, qtype);
+  $("qnav").hidden = false;
+  $("cIdx").textContent = String(idx + 1);
+  $("cTotal").textContent = String(order.length);
+  $("jumpBox").max = String(order.length);
+  $("jumpBox").value = "";
+  $("btnPrev").disabled = idx === 0;
+  $("btnNext").disabled = idx >= order.length - 1;
+  if(s.revealed) wireSolution(q);
+  if(timerLeft > 0 && s.revealed) paintClock();
 }
 
-function wireSolution(){
-  const b = $("btnStartTimer"); if(b) b.onclick = startTimer;
-  const st2 = $("btnStudied"); if(st2) st2.onclick = markStudied;
-  const sp = $("btnSavePr"); if(sp) sp.onclick = savePrinciple;
-  if(timerLeft > 0) paintTimer();
+function wireToolbar(){
+  const p = $("fPaper"), t = $("fTopic"), s = $("fStatus");
+  if(p) p.onchange = () => { filters.paper = p.value; filters.topic = ""; idx = 0; persist(); render(); };
+  if(t) t.onchange = () => { filters.topic = t.value; idx = 0; persist(); render(); };
+  if(s) s.onchange = () => { filters.status = s.value; idx = 0; persist(); render(); };
 }
 
-function reveal(){
-  const s = st(cur.id);
-  s.revealed = true;
-  if(s.status === "new") s.status = "unknown";
-  save(); renderCard(); renderStats(); renderTopics();
+function wireCard(q, s, qtype){
+  const optBtns = [...document.querySelectorAll(".opt")];
+  const fb = $("fb");
+  if(qtype === "MSQ"){
+    optBtns.forEach(b => b.onclick = () => { b.classList.toggle("sel"); b.setAttribute("aria-pressed", b.classList.contains("sel")); });
+    $("btnMsq").onclick = () => {
+      const sel = optBtns.filter(b => b.classList.contains("sel")).map(b => +b.dataset.i);
+      if(!sel.length){ fb.className = "inline-feedback bad"; fb.textContent = "Select at least one option."; return; }
+      grade(q, sel);
+    };
+  } else if(qtype === "NAT"){
+    $("btnNat").onclick = () => {
+      const v = parseFloat($("natInput").value);
+      if(Number.isNaN(v)){ fb.className = "inline-feedback bad"; fb.textContent = "Enter a number."; return; }
+      grade(q, v);
+    };
+    $("natInput").addEventListener("keydown", e => { if(e.key === "Enter") $("btnNat").click(); });
+  } else {
+    optBtns.forEach(b => b.onclick = () => grade(q, +b.dataset.i));
+  }
+  $("btnUnknown").onclick = () => {
+    s.revealed = true;
+    if(s.status === "new") s.status = "unknown";
+    persist(); renderPractice(false);
+    toast("Solution opened · 20-minute repair");
+  };
+  $("btnSkip").onclick = () => go(1);
 }
 
-function markStudied(){
-  const s = st(cur.id);
-  s.status = "studied"; s.revealed = true;
-  save(); renderCard(); renderStats(); renderTopics();
+function wireSolution(q){
+  $("btnTimer").onclick = () => {
+    clearInterval(timerId);
+    timerEnd = Date.now() + 20*60*1000;
+    timerId = setInterval(tickClock, 1000);
+    timerLeft = 1200; paintClock();
+    toast("Repair timer started");
+  };
+  $("btnStudied").onclick = () => {
+    const s = st(q.id); s.status = "studied"; s.revealed = true;
+    persist(); renderPractice(false);
+    toast("Marked studied — answer when ready");
+  };
+  $("btnSavePr").onclick = () => {
+    const box = $("prText"), text = (box.value || "").trim();
+    if(!text){ toast("Type the principle first"); return; }
+    principles.push({ topic:q.topic, text, date:new Date().toISOString().slice(0,10), qid:q.id });
+    persist(); box.value = ""; toast("Principle saved");
+  };
+  const pr = $("prText");
+  if(pr) pr.addEventListener("keydown", e => { if(e.key === "Enter") $("btnSavePr").click(); });
+}
+function tickClock(){
+  timerLeft = Math.max(0, Math.round((timerEnd - Date.now())/1000));
+  paintClock();
+  if(timerLeft <= 0){ clearInterval(timerId); timerId = null; }
+}
+function paintClock(){
+  const el = $("clock"); if(!el) return;
+  const m = Math.floor(timerLeft/60), sec = timerLeft%60;
+  el.textContent = timerLeft === 0 ? "STOP" : m + ":" + String(sec).padStart(2,"0");
+  el.classList.toggle("low", timerLeft <= 180);
 }
 
-function savePrinciple(){
-  const box = $("prText"); const text = (box.value || "").trim();
-  if(!text) return;
-  principles.push({topic: cur.topic, text, date: new Date().toISOString().slice(0,10)});
-  save(); renderPrinciples(); box.value = "";
-}
-
-function gradeQuestion(sel){
-  const q = cur, s = st(q.id);
+function grade(q, sel){
+  const s = st(q.id);
   const qt = q.qtype || "MCQ";
   let correct = false;
-  if (qt === "MSQ") {
-    const a = [...sel].sort((x,y)=>x-y).join(","), b = [...q.answer].sort((x,y)=>x-y).join(",");
+  if(qt === "MSQ"){
+    const a = [...sel].sort().join(","), b = [...q.answer].sort().join(",");
     correct = a === b;
-  } else if (qt === "NAT") {
-    const [lo, hi] = q.answer;
-    correct = sel >= lo - 1e-9 && sel <= hi + 1e-9;
-  } else {
-    correct = sel === q.answer;
-  }
+  } else if(qt === "NAT"){
+    const [lo,hi] = q.answer; correct = sel >= lo - 1e-9 && sel <= hi + 1e-9;
+  } else correct = sel === q.answer;
+
   s.attempts = (s.attempts||0) + 1;
   s.correct = (s.correct||0) + (correct ? 1 : 0);
   s.wrong = (s.wrong||0) + (correct ? 0 : 1);
-  s.lastCorrect = correct;
-  s.lastAt = Date.now();
-  if(correct){ s.status = "mastered"; }
+  s.lastCorrect = correct; s.lastAt = Date.now();
+  if(correct) s.status = "mastered";
   else { s.status = "unknown"; s.revealed = true; }
-  save(); renderCard(); renderStats(); renderTopics();
-  if(correct) setTimeout(() => { if(cur && cur.id === q.id) nextQ(); }, 700);
+  persist();
+
+  // inline feedback + option states
+  const fb = $("fb");
+  const optBtns = [...document.querySelectorAll(".opt")];
+  if(qt === "MSQ"){
+    optBtns.forEach(b => {
+      const i = +b.dataset.i;
+      b.classList.remove("sel");
+      if(q.answer.includes(i)) b.classList.add("correct");
+      else if(sel.includes(i)) b.classList.add("wrong");
+    });
+  } else if(qt === "NAT"){
+    const inp = $("natInput"); if(inp) inp.disabled = true;
+  } else {
+    optBtns.forEach(b => {
+      const i = +b.dataset.i;
+      b.disabled = true;
+      if(i === q.answer) b.classList.add("correct");
+      else if(i === sel) b.classList.add("wrong");
+    });
+  }
+  if(fb){
+    fb.className = "inline-feedback " + (correct ? "good" : "bad");
+    fb.textContent = correct ? "Correct — mastered." : "Not this one. Key: " + (q.keyRaw || "—");
+  }
+  toast(correct ? "Correct" : "Marked unknown — read the solution");
+  $("sol").classList.add("open");
+  wireSolution(q);
+  const c = $("cIdx"); if(c) c.textContent = String(idx + 1);
 }
 
-function startTimer(){
-  clearInterval(timerId);
-  timerEnd = Date.now() + 20*60*1000;
-  timerId = setInterval(() => {
-    timerLeft = Math.max(0, Math.round((timerEnd - Date.now())/1000));
-    paintTimer();
-    if(timerLeft <= 0){ clearInterval(timerId); timerId = null; timerLeft = 0; paintTimer(); }
-  }, 1000);
-  timerLeft = 1200; paintTimer();
+/* ---------- progress ---------- */
+function renderProgress(){
+  const all = bank;
+  const mastered = all.filter(q => statusOf(q) === "mastered").length;
+  const unknown = all.filter(q => statusOf(q) === "unknown").length;
+  const studied = all.filter(q => statusOf(q) === "studied").length;
+  const attempted = Object.values(prog).reduce((a,s) => a + (s.attempts||0), 0);
+  const correct = Object.values(prog).reduce((a,s) => a + (s.correct||0), 0);
+  const acc = attempted ? Math.round(100*correct/attempted) : 0;
+
+  const byTopic = {};
+  all.forEach(q => {
+    const t = q.topic || "Other";
+    byTopic[t] = byTopic[t] || {n:0, done:0};
+    byTopic[t].n++;
+    if(statusOf(q) === "mastered") byTopic[t].done++;
+  });
+  const rows = Object.keys(byTopic).sort().map(t => {
+    const d = byTopic[t], pct = Math.round(100*d.done/d.n);
+    return `<tr><td>${esc(t)}</td><td>${d.done}/${d.n}</td>
+      <td><div class="bar"><i style="width:${pct}%"></i></div></td><td style="text-align:right">${pct}%</td></tr>`;
+  }).join("");
+
+  const pr = principles.slice().reverse().map(p =>
+    `<li><b>${esc(p.topic)}</b> — ${esc(p.text)} <span class="hint">${esc(p.date)}</span></li>`).join("");
+
+  $("view").innerHTML = `
+    <div class="stats">
+      <div class="stat"><b>${all.length}</b><span>Questions</span></div>
+      <div class="stat"><b>${mastered}</b><span>Mastered</span></div>
+      <div class="stat"><b>${unknown}</b><span>Unknown</span></div>
+      <div class="stat"><b>${studied}</b><span>Retry due</span></div>
+      <div class="stat"><b>${acc}%</b><span>Accuracy</span></div>
+    </div>
+    <div class="panel">
+      <h2>Topic mastery</h2>
+      ${rows ? `<table><thead><tr><th>Topic</th><th>Done</th><th>Progress</th><th style="text-align:right">%</th></tr></thead><tbody>${rows}</tbody></table>`
+             : `<div class="empty">No questions loaded yet.</div>`}
+    </div>
+    <div class="panel">
+      <h2>Principles repaired · ${principles.length}</h2>
+      ${pr ? `<ol class="principles">${pr}</ol>` : `<div class="empty">Nothing yet. When you mark unknown and study the repair, save the principle here — that list is your real syllabus progress.</div>`}
+    </div>`;
+  $("qnav").hidden = true;
 }
-function paintTimer(){
-  const el = $("tmr"); if(!el) return;
-  const m = Math.floor(timerLeft/60), sec = timerLeft%60;
-  el.textContent = m + ":" + String(sec).padStart(2,"0");
-  el.classList.toggle("low", timerLeft <= 180);
-  if(timerLeft === 0) el.textContent = "TIME — stop, move on";
+
+/* ---------- settings ---------- */
+function renderSettings(){
+  $("view").innerHTML = `
+    <div class="panel">
+      <h2>Sync across devices</h2>
+      <p class="hint" style="margin-top:0">One private Gist is the shared store. Both devices read and write automatically — no export needed. Token scope: gist only.</p>
+      <div class="row">
+        <input type="text" id="syncToken" placeholder="GitHub token (gist scope)" style="flex:1 1 220px" autocomplete="off" spellcheck="false">
+        <button class="btn primary" id="btnConnect">${sync.mode === "gist" ? "Reconnect" : "Connect"}</button>
+      </div>
+      <div class="row tight">
+        <button class="btn sm" id="btnPull">Sync now</button>
+        <button class="btn sm ghost" id="btnDisconnect">Turn off</button>
+        <span class="status-inline" id="syncStatus">${sync.mode === "gist" ? (sync.lastSync ? "connected · synced " + new Date(sync.lastSync).toLocaleString() : "connected") : "not connected"}</span>
+      </div>
+      <details style="margin-top:12px">
+        <summary>First-time setup</summary>
+        <div class="body hint">
+          github.com → Settings → Developer settings → Personal access tokens (classic) → Generate new token.
+          Tick only <b>gist</b>. Paste it above and press Connect; the first device creates the gist, later devices find it by name.
+        </div>
+      </details>
+    </div>
+
+    <div class="panel">
+      <h2>Add questions</h2>
+      <p class="hint" style="margin-top:0">Paste a JSON array. Fields: exam, year, qno, topic, qtype (MCQ/MSQ/NAT), text, options, answer, solution, principle, src, image.</p>
+      <textarea id="addBox" rows="5" placeholder='[{"exam":"GATE EC","year":2024,"qno":12,"topic":"Signals","qtype":"MCQ","text":"...","options":["A","B","C","D"],"answer":1,"solution":"...","principle":"...","src":"...","verified":true}]'
+        style="width:100%;font-family:ui-monospace,Consolas,monospace;font-size:12.5px"></textarea>
+      <div class="row tight"><button class="btn sm ok" id="btnAdd">Add to bank</button><span class="status-inline" id="addMsg"></span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Backup</h2>
+      <div class="row">
+        <button class="btn sm" id="btnExport">Download progress</button>
+        <button class="btn sm" id="btnCopy">Copy progress</button>
+        <button class="btn sm ghost" id="btnReset">Reset progress</button>
+      </div>
+      <div class="row tight">
+        <input type="text" id="importBox" placeholder="Paste exported JSON to restore" style="flex:1 1 220px">
+        <button class="btn sm" id="btnImport">Restore</button>
+      </div>
+      <span class="status-inline" id="impMsg"></span>
+    </div>
+
+    <div class="panel">
+      <h2>About</h2>
+      <p class="hint" style="margin:0">Bank ${bank.length} questions · ${bank.filter(q=>q.verified).length} with an official source · ${PAPERS.length} paper ingested.
+      Data lives in this browser and in your private gist. Install via browser menu → Add to Home screen.</p>
+    </div>`;
+  wireSettings();
+}
+
+function wireSettings(){
+  $("syncToken").value = sync.token || "";
+  $("btnConnect").onclick = connectSync;
+  $("btnPull").onclick = () => pullNow(true);
+  $("btnDisconnect").onclick = () => { sync = {mode:"off",token:"",gistId:"",lastSync:0}; localStorage.setItem(LS_SYNC, JSON.stringify(sync)); renderSettings(); paintDot(); toast("Sync off"); };
+  $("btnAdd").onclick = addQuestions;
+  $("btnExport").onclick = exportProgress;
+  $("btnCopy").onclick = copyProgress;
+  $("btnImport").onclick = importProgress;
+  $("btnReset").onclick = resetProgress;
 }
 
 function addQuestions(){
-  const raw = $("addBox").value.trim();
-  $("addMsg").textContent = "";
-  if(!raw){ $("addMsg").textContent = "Paste JSON first."; return; }
+  const box = $("addBox"), msg = $("addMsg");
+  msg.className = "status-inline"; msg.textContent = "";
   let arr;
-  try { arr = JSON.parse(raw); } catch(e){ $("addMsg").textContent = "Bad JSON: " + e.message; return; }
+  try{ arr = JSON.parse(box.value.trim() || "[]"); }catch(e){ msg.className = "status-inline bad"; msg.textContent = "Invalid JSON: " + e.message; return; }
   if(!Array.isArray(arr)) arr = [arr];
-  const clean = [];
-  arr.forEach((q, idx) => {
-    if(!q || !q.text || !Array.isArray(q.options)) return;
-    clean.push({
-      id: q.id || ("custom-" + Date.now() + "-" + idx),
-      exam: q.exam || "GATE EC", year: q.year || null, qno: q.qno || null,
-      topic: q.topic || "Other", text: q.text, options: q.options,
-      answer: Number(q.answer) || 0, solution: q.solution || "",
-      principle: q.principle || "", src: q.src || "user-added",
-      verified: !!q.verified, image: q.image || null, figCaption: q.figCaption || null
-    });
-  });
-  if(!clean.length){ $("addMsg").textContent = "No valid items (need text + options)."; return; }
-  const custom = JSON.parse(localStorage.getItem(LS_BANK) || "[]").concat(clean);
-  localStorage.setItem(LS_BANK, JSON.stringify(custom));
-  load(); populateTopics(); renderStats(); renderTopics();
-  $("addMsg").textContent = "Added " + clean.length + " question(s).";
-  $("addBox").value = "";
+  const clean = arr.filter(q => q && q.text && Array.isArray(q.options)).map((q,i) => ({
+    id: q.id || ("custom-" + Date.now() + "-" + i),
+    exam: q.exam || "GATE EC", year: q.year || null, qno: q.qno || null,
+    topic: q.topic || "Other", qtype: q.qtype || "MCQ", marks: q.marks || 1,
+    text: q.text, options: q.options, answer: q.answer,
+    keyRaw: q.keyRaw || null, solution: q.solution || "", principle: q.principle || "",
+    src: q.src || "user-added", verified: !!q.verified, image: q.image || null
+  }));
+  if(!clean.length){ msg.className = "status-inline bad"; msg.textContent = "Need at least one item with text + options."; return; }
+  customBank = customBank.concat(clean);
+  localStorage.setItem(LS_BANK, JSON.stringify(customBank));
+  rebuildBank(); box.value = "";
+  msg.className = "status-inline good"; msg.textContent = "Added " + clean.length + " question(s).";
+  toast("Bank updated");
+  renderSettings();
 }
 
 function exportProgress(){
-  const payload = {exportedAt:new Date().toISOString(), progress:prog, principles};
-  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  const payload = { exportedAt:new Date().toISOString(), progress:prog, principles };
+  const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "pyq-progress-" + new Date().toISOString().slice(0,10) + ".json";
   a.click();
+  toast("Progress downloaded");
 }
 function copyProgress(){
-  const payload = {exportedAt:new Date().toISOString(), progress:prog, principles};
+  const payload = { exportedAt:new Date().toISOString(), progress:prog, principles };
   navigator.clipboard.writeText(JSON.stringify(payload)).then(
-    () => $("impMsg").textContent = "Copied to clipboard.",
-    () => $("impMsg").textContent = "Clipboard blocked — use Download instead."
+    () => { $("impMsg").className = "status-inline good"; $("impMsg").textContent = "Copied."; },
+    () => { $("impMsg").className = "status-inline bad"; $("impMsg").textContent = "Clipboard blocked — use Download."; }
   );
 }
 function importProgress(){
-  const raw = $("importBox").value.trim();
-  $("impMsg").textContent = "";
+  const raw = $("importBox").value.trim(), msg = $("impMsg");
   let obj;
-  try { obj = JSON.parse(raw); } catch(e){ $("impMsg").textContent = "Bad JSON: " + e.message; return; }
-  if(obj.progress){ prog = obj.progress; }
-  if(Array.isArray(obj.principles)){ principles = obj.principles; }
-  save(); renderStats(); renderTopics(); renderPrinciples(); renderCard();
-  $("impMsg").textContent = "Restored.";
+  try{ obj = JSON.parse(raw); }catch(e){ msg.className = "status-inline bad"; msg.textContent = "Invalid JSON."; return; }
+  if(obj.progress) prog = obj.progress;
+  if(Array.isArray(obj.principles)) principles = obj.principles;
+  persist(); msg.className = "status-inline good"; msg.textContent = "Restored.";
+  toast("Progress restored");
 }
 function resetProgress(){
   if(!confirm("Erase all progress and principles? Questions stay.")) return;
-  prog = {}; principles = []; save();
-  renderStats(); renderTopics(); renderPrinciples(); renderCard();
+  prog = {}; principles = []; persist(); renderSettings(); toast("Progress reset");
 }
 
-/* ---------------- auto-sync via private GitHub Gist ---------------- */
-const LS_SYNC = "pyqLoop.sync.v1";
-let sync = {mode:"off", token:"", gistId:"", lastSync:0};
-let pushTimer = null, pushing = false;
-
-function loadSync(){
-  try { sync = Object.assign(sync, JSON.parse(localStorage.getItem(LS_SYNC) || "{}")); } catch(e){}
-  if (sync.token) $("syncToken").value = sync.token;
-  setSyncStatus(sync.mode === "gist" ? "connected · " + (sync.lastSync ? "synced " + new Date(sync.lastSync).toLocaleString() : "not synced yet") : "not connected");
+/* ============ sync ============ */
+function paintDot(){
+  const d = $("syncDot");
+  d.className = "sync-dot" + (sync.mode === "gist" ? (sync.lastSync ? " on" : " busy") : "");
 }
-function persistSync(){ localStorage.setItem(LS_SYNC, JSON.stringify(sync)); }
-function setSyncStatus(msg){ const el = $("syncStatus"); if(el) el.textContent = msg; }
-
-function customBank(){ try { return JSON.parse(localStorage.getItem(LS_BANK) || "[]"); } catch(e){ return []; } }
-function setCustomBank(arr){ localStorage.setItem(LS_BANK, JSON.stringify(arr)); }
-
 function payload(){
-  return {app:"pyq-loop", v:1, updatedAt:Date.now(), progress:prog, principles, customBank:customBank()};
+  return { app:"pyq-loop", v:2, updatedAt:Date.now(), progress:prog, principles, customBank };
 }
-
 function mergeRemote(remote){
   let changed = false;
   const rp = (remote && remote.progress) || {};
   Object.keys(rp).forEach(id => {
     const l = prog[id], r = rp[id];
-    if (!l || (r.lastAt || 0) > (l.lastAt || 0)) { prog[id] = r; changed = true; }
+    if(!l || (r.lastAt || 0) > (l.lastAt || 0)){ prog[id] = r; changed = true; }
   });
   const seen = new Set(principles.map(p => p.topic + "|" + p.text + "|" + p.date));
   ((remote && remote.principles) || []).forEach(p => {
     const k = p.topic + "|" + p.text + "|" + p.date;
-    if (!seen.has(k)) { principles.push(p); seen.add(k); changed = true; }
+    if(!seen.has(k)){ principles.push(p); seen.add(k); changed = true; }
   });
-  const ids = new Set(customBank().map(q => q.id));
-  let added = [];
+  const ids = new Set(customBank.map(q => q.id));
   ((remote && remote.customBank) || []).forEach(q => {
-    if (q && q.id && !ids.has(q.id)) { added.push(q); ids.add(q.id); }
+    if(q && q.id && !ids.has(q.id)){ customBank.push(q); ids.add(q.id); changed = true; }
   });
-  if (added.length) { setCustomBank(customBank().concat(added)); changed = true; }
-  if (changed) {
-    load(); populateTopics(); renderStats(); renderTopics(); renderPrinciples();
-    if (cur && bank.some(q => q.id === cur.id)) renderCard(); else nextQ();
+  if(changed){
+    localStorage.setItem(LS_BANK, JSON.stringify(customBank));
+    rebuildBank(); render();
   }
   return changed;
 }
-
 async function readRemote(){
   const r = await fetch("https://api.github.com/gists/" + sync.gistId, {
-    headers: { Authorization: "token " + sync.token, Accept: "application/vnd.github+json" }
+    headers:{ Authorization:"token " + sync.token, Accept:"application/vnd.github+json" }
   });
-  if (!r.ok) throw new Error("read HTTP " + r.status);
+  if(!r.ok) throw new Error("read " + r.status);
   const j = await r.json();
   const file = j.files["pyq-loop.json"] || Object.values(j.files || {})[0];
-  if (!file) throw new Error("no data file in gist");
+  if(!file) throw new Error("empty gist");
   let content = file.content;
-  if (file.truncated && file.raw_url) content = await (await fetch(file.raw_url)).text();
+  if(file.truncated && file.raw_url) content = await (await fetch(file.raw_url)).text();
   return JSON.parse(content);
 }
-
 async function writeRemote(data){
   const r = await fetch("https://api.github.com/gists/" + sync.gistId, {
-    method: "PATCH",
-    headers: {
-      Authorization: "token " + sync.token,
-      Accept: "application/vnd.github+json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ files: { "pyq-loop.json": { content: JSON.stringify(data) } } })
+    method:"PATCH",
+    headers:{ Authorization:"token " + sync.token, Accept:"application/vnd.github+json", "Content-Type":"application/json" },
+    body: JSON.stringify({ files:{ "pyq-loop.json":{ content: JSON.stringify(data) } } })
   });
-  if (!r.ok) throw new Error("write HTTP " + r.status);
+  if(!r.ok) throw new Error("write " + r.status);
 }
-
 async function findGist(){
   const r = await fetch("https://api.github.com/gists?per_page=100", {
-    headers: { Authorization: "token " + sync.token, Accept: "application/vnd.github+json" }
+    headers:{ Authorization:"token " + sync.token, Accept:"application/vnd.github+json" }
   });
-  if (!r.ok) throw new Error("list HTTP " + r.status);
+  if(!r.ok) throw new Error("list " + r.status);
   const list = await r.json();
   const hit = (list || []).find(g => g.description === "PYQ Loop sync" || (g.files && g.files["pyq-loop.json"]));
   return hit ? hit.id : null;
 }
-
 async function createGist(){
   const r = await fetch("https://api.github.com/gists", {
-    method: "POST",
-    headers: {
-      Authorization: "token " + sync.token,
-      Accept: "application/vnd.github+json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      description: "PYQ Loop sync",
-      public: false,
-      files: { "pyq-loop.json": { content: JSON.stringify(payload()) } }
-    })
+    method:"POST",
+    headers:{ Authorization:"token " + sync.token, Accept:"application/vnd.github+json", "Content-Type":"application/json" },
+    body: JSON.stringify({ description:"PYQ Loop sync", public:false, files:{ "pyq-loop.json":{ content: JSON.stringify(payload()) } } })
   });
-  if (!r.ok) throw new Error("create HTTP " + r.status);
-  const j = await r.json();
-  return j.id;
+  if(!r.ok) throw new Error("create " + r.status);
+  return (await r.json()).id;
 }
-
 async function connectSync(){
   const token = ($("syncToken").value || "").trim();
-  if (!token) { setSyncStatus("paste a token first"); return; }
-  setSyncStatus("connecting…");
-  try {
+  if(!token){ toast("Paste a token first"); return; }
+  const stEl = $("syncStatus");
+  stEl.className = "status-inline"; stEl.textContent = "connecting…";
+  try{
     sync.token = token;
-    sync.gistId = await findGist();
-    if (!sync.gistId) sync.gistId = await createGist();
-    sync.mode = "gist"; persistSync();
-    await pullNow();
-    setSyncStatus("connected · synced " + new Date().toLocaleTimeString());
-  } catch(e){
-    sync.mode = "off"; persistSync();
-    setSyncStatus("failed: " + e.message + " (token needs gist scope)");
+    sync.gistId = await findGist() || await createGist();
+    sync.mode = "gist";
+    localStorage.setItem(LS_SYNC, JSON.stringify(sync));
+    await pullNow(false);
+    stEl.className = "status-inline good";
+    stEl.textContent = "connected · synced " + new Date().toLocaleTimeString();
+    paintDot(); toast("Sync connected");
+  }catch(e){
+    sync.mode = "off"; localStorage.setItem(LS_SYNC, JSON.stringify(sync));
+    stEl.className = "status-inline bad";
+    stEl.textContent = "failed: " + e.message + " — token needs gist scope";
+    paintDot();
   }
 }
-
-async function pullNow(){
-  if (sync.mode !== "gist" || !sync.gistId) { setSyncStatus("not connected"); return; }
-  setSyncStatus("syncing…");
-  try {
+async function pullNow(manual){
+  if(sync.mode !== "gist" || !sync.gistId){ if(manual) toast("Not connected"); return; }
+  paintDot();
+  try{
     const remote = await readRemote();
     mergeRemote(remote);
-    sync.lastSync = Date.now(); persistSync();
-    setSyncStatus("synced " + new Date().toLocaleTimeString());
-  } catch(e){ setSyncStatus("sync error: " + e.message); }
+    sync.lastSync = Date.now(); localStorage.setItem(LS_SYNC, JSON.stringify(sync));
+    paintDot();
+    if(view === "settings") renderSettings();
+    if(manual) toast("Synced");
+  }catch(e){
+    $("syncDot").className = "sync-dot err";
+    if(manual) toast("Sync failed: " + e.message);
+  }
 }
-
 async function pushNow(){
-  if (sync.mode !== "gist" || !sync.gistId || pushing) return;
-  pushing = true;
-  try {
-    try { mergeRemote(await readRemote()); } catch(e){}
+  if(sync.mode !== "gist" || !sync.gistId || pushing) return;
+  pushing = true; paintDot();
+  try{
+    try{ mergeRemote(await readRemote()); }catch(e){}
     await writeRemote(payload());
-    sync.lastSync = Date.now(); persistSync();
-    setSyncStatus("saved " + new Date().toLocaleTimeString());
-  } catch(e){ setSyncStatus("save error: " + e.message); }
+    sync.lastSync = Date.now(); localStorage.setItem(LS_SYNC, JSON.stringify(sync));
+    paintDot();
+  }catch(e){
+    $("syncDot").className = "sync-dot err";
+  }
   pushing = false;
 }
-
 function schedulePush(){
-  if (sync.mode !== "gist" || !sync.gistId) return;
+  if(sync.mode !== "gist" || !sync.gistId) return;
   clearTimeout(pushTimer);
   pushTimer = setTimeout(pushNow, 1200);
 }
 
-function disconnectSync(){
-  sync = {mode:"off", token:"", gistId:"", lastSync:0};
-  persistSync(); setSyncStatus("sync off · this device only");
+/* ============ question map ============ */
+function openMap(){
+  const dlg = $("mapDialog");
+  const grid = $("mapGrid");
+  grid.innerHTML = order.map((q,i) => {
+    const s = statusOf(q);
+    return `<button class="cell ${i === idx ? "active" : ""}" data-i="${i}" data-s="${s}" title="${esc(q.exam || "")} ${q.qno ? "Q" + q.qno : ""}">${q.qno || (i + 1)}</button>`;
+  }).join("");
+  grid.querySelectorAll(".cell").forEach(b => b.onclick = () => { jumpTo(+b.dataset.i + 1); dlg.close(); });
+  if(typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open","");
+}
+function closeMap(){ const d = $("mapDialog"); if(typeof d.close === "function") d.close(); else d.removeAttribute("open"); }
+
+/* ============ boot ============ */
+function boot(){
+  const h = location.hash.replace("#","");
+  if(["practice","progress","settings"].includes(h)) view = h;
+  loadLocal();
+  try{ sync = Object.assign(sync, JSON.parse(localStorage.getItem(LS_SYNC) || "{}")); }catch(e){}
+  paintDot();
+  render();
+  loadRemoteBank().then(n => {
+    if(n){ render(); }
+    if(sync.mode === "gist" && sync.gistId) setTimeout(() => pullNow(false), 500);
+  }).catch(() => {});
 }
 
-loadSync();
-if (sync.mode === "gist" && sync.gistId) setTimeout(pullNow, 600);
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && sync.mode === "gist") pullNow();
-  if (document.visibilityState === "hidden") pushNow();
+async function loadRemoteBank(){
+  let total = 0;
+  for(const p of PAPERS){
+    try{
+      const r = await fetch(p.file, { cache:"no-store" });
+      if(!r.ok) continue;
+      const arr = await r.json();
+      if(!Array.isArray(arr)) continue;
+      remoteBank = remoteBank.concat(arr.map(q => Object.assign({ paper:p.id }, q)));
+      p.count = arr.length;
+      total += arr.length;
+    }catch(e){}
+  }
+  if(total){ rebuildBank(); }
+  bankLoaded = true;
+  return total;
+}
+
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => { view = t.dataset.view; location.hash = view; render(); });
+window.addEventListener("hashchange", () => {
+  const h = location.hash.replace("#","");
+  if(["practice","progress","settings"].includes(h)){ view = h; render(); }
 });
-window.addEventListener("online", () => { if (sync.mode === "gist") pullNow(); });
-$("btnConnect").onclick = connectSync;
-$("btnPull").onclick = pullNow;
-$("btnDisconnect").onclick = disconnectSync;
+$("btnPrev").onclick = () => go(-1);
+$("btnNext").onclick = () => go(1);
+$("jumpBox").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ jumpTo(parseInt(e.target.value, 10) || 1); e.target.blur(); }
+});
+$("btnMapTop").onclick = openMap;
+$("btnMapClose").onclick = closeMap;
+$("mapDialog").addEventListener("click", e => { if(e.target.id === "mapDialog") closeMap(); });
+document.addEventListener("keydown", e => {
+  if(e.target.matches("input,textarea,select")) return;
+  if(view !== "practice") return;
+  if(e.key === "ArrowRight") go(1);
+  if(e.key === "ArrowLeft") go(-1);
+});
 
-load();
-populateTopics();
-renderStats(); renderTopics(); renderPrinciples();
-nextQ();
-loadRemoteBank();
-$("btnNext").onclick = nextQ;
-$("btnPick").onclick = pickRandom;
-$("fTopic").onchange = nextQ;
-$("fStatus").onchange = nextQ;
-$("btnAdd").onclick = addQuestions;
-$("btnExport").onclick = exportProgress;
-$("btnCopy").onclick = copyProgress;
-$("btnImport").onclick = importProgress;
-$("btnReset").onclick = resetProgress;
-$("ver").textContent = "PYQ Loop v1 · bank " + bank.length + " Qs (" + bank.filter(q=>q.verified).length + " verified) · progress saved in this browser only";
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
-}
-if (!window.matchMedia("(display-mode: standalone)").matches && !navigator.standalone) {
-  $("installBar").style.display = "block";
-}
+boot();
 </script>
 </body>
 </html>
