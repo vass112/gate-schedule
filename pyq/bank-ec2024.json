@@ -7,7 +7,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q1 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q1 · Aptitude",
   "image": "figs/ec2024-q01.png",
   "options": [
    "A",
@@ -17,8 +17,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Intensity ladder: charm < enamor < bewitch. Between 'bored' and 'weary' the intermediate stage is jaded. Baffled, dead, worsted belong to other scales.",
+  "principle": "Analogy = same relation, not same topic.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.2; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -30,7 +30,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q2 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q2 · Aptitude",
   "image": "figs/ec2024-q02.png",
   "options": [
    "A",
@@ -40,8 +40,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "S and Q are single children, so they cannot be the sibling pair — eliminate B and C. P and T never share a room in either layout; T and R share in layout 2, so D fails.",
+  "principle": "Apply hard constraints first, then test survivors against every layout.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.3; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -53,7 +53,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q3 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q3 · Aptitude",
   "image": "figs/ec2024-q03.png",
   "options": [
    "A",
@@ -63,8 +63,8 @@
   ],
   "answer": 1,
   "keyRaw": "B",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Five years ago x and 4x; now x+5, 4x+5; five years on ratio 2:5 → 5x+50 = 8x+20 → x = 10. Aman 15, father 45 → father was 30 at Aman's birth.",
+  "principle": "Anchor at the earliest time, write both conditions once.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -86,8 +86,8 @@
   ],
   "answer": 2,
   "keyRaw": "C",
-  "solution": "Put x = 2^a etc: 1/log2 x + 1/log3 x + 1/log4 x = log_x 2 + log_x 3 + log_x 4 = log_x 24. Set equal to 1 -> x = 24.",
-  "principle": "1/log_a x = log_x a. Sum of reciprocal logs = log of the product, base x.",
+  "solution": "1/log₂x + 1/log₃x + 1/log₄x = log_x(2·3·4) = log_x24 = 1 → x = 24.",
+  "principle": "1/log_a x = log_x a; sum of reciprocal logs = log of the product.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.4; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -109,8 +109,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "3^199 - 3^196 = 3^196 (3^3 - 1) = 3^196 x 26 = 3^196 x 2 x 13. Greatest prime factor = 13.",
-  "principle": "Factor out the smallest power before looking for primes: a^m - a^n = a^n(a^(m-n) - 1).",
+  "solution": "3¹⁹⁶(27 − 1) = 3¹⁹⁶ × 2 × 13 → greatest prime 13.",
+  "principle": "Factor out the smallest power before hunting primes.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.5; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -122,7 +122,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q6 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q6 · Aptitude",
   "image": "figs/ec2024-q06.png",
   "options": [
    "A",
@@ -132,8 +132,8 @@
   ],
   "answer": 2,
   "keyRaw": "C",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "R (doctrine) → S (incident) → P (challenge) → Q (punchline): RSPQ.",
+  "principle": "Premise, event, dialogue, response.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.6; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -145,7 +145,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q7 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q7 · Aptitude",
   "image": "figs/ec2024-q07.png",
   "options": [
    "A",
@@ -155,8 +155,8 @@
   ],
   "answer": 3,
   "keyRaw": "D",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Outline = 4 straight runs of 2r (4 cm) + one full circle (π cm) = 4 + π; area = 10(4 + π).",
+  "principle": "Tape around a bundle: straight segments + arcs summing to one circle.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.7; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -168,7 +168,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q8 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q8 · Aptitude",
   "image": "figs/ec2024-q08.png",
   "options": [
    "A",
@@ -178,8 +178,8 @@
   ],
   "answer": 2,
   "keyRaw": "C",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Normal 50%→30%, Overweight 22%→40%, Obese 13%→24%, Underweight 10%→5%. Obese/Normal rose 0.26→0.8, so 'decreased' is the false claim.",
+  "principle": "Compute ratios; for 'INCORRECT', check all four.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.8; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -191,7 +191,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q9 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q9 · Aptitude",
   "image": "figs/ec2024-q09.png",
   "options": [
    "A",
@@ -201,8 +201,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Mirror + water = 180° rotation; rotate the image 180° → A.",
+  "principle": "Two reflections compose to a half-turn.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.9; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -214,7 +214,7 @@
   "topic": "Aptitude",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q10 · Aptitude  (read from the image)",
+  "text": "GATE EC 2024 · Q10 · Aptitude",
   "image": "figs/ec2024-q10.png",
   "options": [
    "A",
@@ -224,8 +224,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "FO1: 24×4, perimeter 56. FO2: 6×16, perimeter 44. Ratio 14:11.",
+  "principle": "Folding halves the perpendicular side.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.10; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -237,7 +237,7 @@
   "topic": "Maths - Differential Equations",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q11 · Maths - Differential Equations  (read from the image)",
+  "text": "GATE EC 2024 · Q11 · Maths - Differential Equations",
   "image": "figs/ec2024-q11.png",
   "options": [
    "A",
@@ -247,8 +247,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Double root −2 → (r+2)² = r²+4r+4.",
+  "principle": "Repeated root r → coefficients −2r, r².",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -306,7 +306,7 @@
   "topic": "EMFT",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q15 · EMFT  (read from the image)",
+  "text": "GATE EC 2024 · Q15 · EMFT",
   "image": "figs/ec2024-q15.png",
   "options": [
    "A",
@@ -316,8 +316,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Zin = jZ₀ tan βl: λ/8 → +j1, λ/4 → ∞, 3λ/8 → −j1, λ/2 → 0.",
+  "principle": "Short-circuited line cycles every λ/2.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.14; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -329,7 +329,7 @@
   "topic": "Maths - Vector Calculus",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q16 · Maths - Vector Calculus  (read from the image)",
+  "text": "GATE EC 2024 · Q16 · Maths - Vector Calculus",
   "image": "figs/ec2024-q16.png",
   "options": [
    "A",
@@ -339,8 +339,8 @@
   ],
   "answer": 1,
   "keyRaw": "B",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "curl F₁ = 0 (electrostatic); curl F₂ = −A ≠ 0 (not).",
+  "principle": "Electrostatic ⇒ curl = 0.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.15; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -352,7 +352,7 @@
   "topic": "Analog",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q17 · Analog  (read from the image)",
+  "text": "GATE EC 2024 · Q17 · Analog",
   "image": "figs/ec2024-q17.png",
   "options": [
    "A",
@@ -362,8 +362,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Miller feedback: Zin = −g_m/(ω²C₁C_L) + 1/(jωC₁) + 1/(jωC_L).",
+  "principle": "Drain-gate capacitor gives a negative real input resistance.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.16; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -375,7 +375,7 @@
   "topic": "Analog",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q18 · Analog  (read from the image)",
+  "text": "GATE EC 2024 · Q18 · Analog",
   "image": "figs/ec2024-q18.png",
   "options": [
    "A",
@@ -385,8 +385,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "β = 1, A = 40 → 40/41 = 0.976.",
+  "principle": "Closed-loop gain A/(1+Aβ).",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.17; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -398,7 +398,7 @@
   "topic": "Digital",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q19 · Digital  (read from the image)",
+  "text": "GATE EC 2024 · Q19 · Digital",
   "image": "figs/ec2024-q19.png",
   "options": [
    "A",
@@ -408,8 +408,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "BD (5,7,13,15) and B̄D̄ (0,2,8,10) are the only PIs for minterms 5 and 0 → essential. AB is a PI but not essential.",
+  "principle": "Essential PI owns a minterm alone.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -421,7 +421,7 @@
   "topic": "Communication",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q20 · Communication  (read from the image)",
+  "text": "GATE EC 2024 · Q20 · Communication",
   "image": "figs/ec2024-q20.png",
   "options": [
    "A",
@@ -431,8 +431,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "∫|H|²df = 1/(4RC) → variance N₀/(4RC).",
+  "principle": "RC noise bandwidth integral = 1/(4RC).",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.18; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -444,7 +444,7 @@
   "topic": "Signals",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q21 · Signals  (read from the image)",
+  "text": "GATE EC 2024 · Q21 · Signals",
   "image": "figs/ec2024-q21.png",
   "options": [
    "A",
@@ -454,8 +454,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "x(at)*h(at) = (1/|a|)y(at); a = 0.5 → 2y(0.5t).",
+  "principle": "Scaling factor is 1/|a|.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.19; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -467,7 +467,7 @@
   "topic": "Devices",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q22 · Devices  (read from the image)",
+  "text": "GATE EC 2024 · Q22 · Devices",
   "image": "figs/ec2024-q22.png",
   "options": [
    "A",
@@ -477,8 +477,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Intrinsic rise left, plateau, freeze-out right (against 1/T).",
+  "principle": "Three regions of n vs 1/T.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.20; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -490,7 +490,7 @@
   "topic": "Analog",
   "qtype": "MCQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q23 · Analog  (read from the image)",
+  "text": "GATE EC 2024 · Q23 · Analog",
   "image": "figs/ec2024-q23.png",
   "options": [
    "A",
@@ -500,8 +500,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Each half-secondary peak = 5/n; average = 10/(nπ) = 2.5/π → n = 4.",
+  "principle": "Centre-tap halves the secondary voltage.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.21; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -513,7 +513,7 @@
   "topic": "Signals",
   "qtype": "MSQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q24 · Signals  (read from the image)",
+  "text": "GATE EC 2024 · Q24 · Signals",
   "image": "figs/ec2024-q24.png",
   "options": [
    "A",
@@ -527,8 +527,8 @@
    3
   ],
   "keyRaw": "A;C;D",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Poles ±1/3 → stable. Zeros at |z| = √1.5 > 1 → not minimum phase. h[0] = 2. Final value → 0.",
+  "principle": "Poles inside → stable; zeros inside → minimum phase.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.22; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -540,7 +540,7 @@
   "topic": "EMFT",
   "qtype": "MSQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q25 · EMFT  (read from the image)",
+  "text": "GATE EC 2024 · Q25 · EMFT",
   "image": "figs/ec2024-q25.png",
   "options": [
    "A",
@@ -553,8 +553,8 @@
    2
   ],
   "keyRaw": "A;C",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Divergence theorem: ∫∂ρ/∂t dv = −∮ρu·n ds = −∫∇·(ρu) dv (A, C).",
+  "principle": "Continuity equation in integral form.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.23; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -566,7 +566,7 @@
   "topic": "Devices",
   "qtype": "MSQ",
   "marks": 1,
-  "text": "GATE EC 2024 · Q26 · Devices  (read from the image)",
+  "text": "GATE EC 2024 · Q26 · Devices",
   "image": "figs/ec2024-q26.png",
   "options": [
    "A",
@@ -580,8 +580,8 @@
    2
   ],
   "keyRaw": "A;B;C",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "E = −(kT/q)(1/n)dn/dx. B→A: E points B→A (drift B→A, B true). B→C: E points B→C (C true). Diffusion current between B and C flows C→B (A true).",
+  "principle": "The minus sign in E = −(kT/q)(1/n)dn/dx decides every direction.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -606,8 +606,8 @@
    2047.0
   ],
   "keyRaw": "2047 to 2047",
-  "solution": "Field widths: 24 registers -> 5 bits each, three register fields = 15 bits; opcode for 40 instructions = 6 bits. Immediate = 32 - 15 - 6 = 11 bits. Max unsigned value = 2^11 - 1 = 2047.",
-  "principle": "Instruction encoding: bits left after opcode + register fields belong to the immediate. n bits unsigned -> 2^n - 1.",
+  "solution": "24 registers → 5 bits each, three fields = 15; 40 opcodes → 6 bits; immediate = 32 − 21 = 11 bits → max 2¹¹ − 1 = 2047.",
+  "principle": "Bits left after opcode + registers belong to the immediate.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.24; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -619,7 +619,7 @@
   "topic": "Communication",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q28 · Communication  (read from the image)",
+  "text": "GATE EC 2024 · Q28 · Communication",
   "image": "figs/ec2024-q28.png",
   "options": [
    "A",
@@ -632,8 +632,8 @@
    2.51
   ],
   "keyRaw": "2.49 to 2.51",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Pc = A²/2 = 50 → A = 10. Two sidebands at B give sideband power B². B²/(50+B²) = 1/9 → 8B² = 50 → B = 2.5 V.",
+  "principle": "Sideband/total = m²/(2+m²) with m = B/A; or work in powers directly.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -658,8 +658,8 @@
    11.0
   ],
   "keyRaw": "11 to 11",
-  "solution": "Interpret 12 and 37 as base-r numbers: 64 - (r+2)8 + (3r+7) = 0 -> 55 - 5r = 0 -> r = 11.",
-  "principle": "In base r, the numeral '12' means r+2 and '37' means 3r+7. Substitute and solve.",
+  "solution": "64 − (r+2)·8 + (3r+7) = 0 → 55 − 5r = 0 → r = 11.",
+  "principle": "In base r, '12' = r+2 and '37' = 3r+7.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -671,7 +671,7 @@
   "topic": "Maths - Linear Algebra",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q30 · Maths - Linear Algebra  (read from the image)",
+  "text": "GATE EC 2024 · Q30 · Maths - Linear Algebra",
   "image": "figs/ec2024-q30.png",
   "options": [
    "A",
@@ -684,8 +684,8 @@
    5.0
   ],
   "keyRaw": "5 to 5",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "det = 2(8) + 3(18) − 14α = 70 − 14α; basis fails when det = 0 → α = 5.",
+  "principle": "Vectors form a basis iff the determinant is non-zero.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.25; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -697,7 +697,7 @@
   "topic": "Networks",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q31 · Networks  (read from the image)",
+  "text": "GATE EC 2024 · Q31 · Networks",
   "image": "figs/ec2024-q31.png",
   "options": [
    "A",
@@ -710,8 +710,8 @@
    2.0
   ],
   "keyRaw": "2 to 2",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Left node: 5 = I₀ + I_C with I₀ = V_A. Dependent source: V_B = V_A + 1000I₀ = 2V_A. Right node: I_C = 2 + V_B (2 mA source in series with its 1k). So 5 − V_A = 2 + 2V_A → V_A = 1 V, V_B = 2 V, Ix = 2 mA.",
+  "principle": "Dependent-source circuits: write KCL at each node, express the controlling variable from Ohm's law, then substitute once.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -723,7 +723,7 @@
   "topic": "Networks",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q32 · Networks  (read from the image)",
+  "text": "GATE EC 2024 · Q32 · Networks",
   "image": "figs/ec2024-q32.png",
   "options": [
    "A",
@@ -736,8 +736,8 @@
    0.75
   ],
   "keyRaw": "0.75 to 0.75",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "After closing, the inductor discharges through the 4Ω branch (the 2Ω sits across the ideal current source and is bypassed as far as the inductor loop is concerned). τ = L/R = 3/4 = 0.75 s.",
+  "principle": "Time constant = L/R_th seen by the inductor; an ideal current source's parallel resistor does not load the inductor loop once the switch re-routes it.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -749,7 +749,7 @@
   "topic": "Maths - Probability",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q33 · Maths - Probability  (read from the image)",
+  "text": "GATE EC 2024 · Q33 · Maths - Probability",
   "image": "figs/ec2024-q33.png",
   "options": [
    "A",
@@ -762,8 +762,8 @@
    0.5
   ],
   "keyRaw": "0.50 to 0.50",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "For iid continuous variables P(X ≥ Y) = 1/2 by symmetry (ties have probability zero).",
+  "principle": "Symmetry: P(X>Y) = P(Y>X) = 1/2 for iid continuous variables.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.26; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -788,8 +788,8 @@
    4.0
   ],
   "keyRaw": "4 to 4",
-  "solution": "Maximum entropy of a source with 16 equally likely symbols is log2(16) = 4 bits/symbol.",
-  "principle": "Max entropy = log2(alphabet size), achieved only when symbols are equiprobable.",
+  "solution": "Maximum entropy of 16 equiprobable symbols = log₂16 = 4 bits.",
+  "principle": "Max entropy = log₂(alphabet size).",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -801,7 +801,7 @@
   "topic": "Networks",
   "qtype": "NAT",
   "marks": 1,
-  "text": "GATE EC 2024 · Q35 · Networks  (read from the image)",
+  "text": "GATE EC 2024 · Q35 · Networks",
   "image": "figs/ec2024-q35.png",
   "options": [
    "A",
@@ -814,8 +814,8 @@
    0.25
   ],
   "keyRaw": "0.250 to 0.250",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "The Zener clamps at 5 V, so the capacitor discharges from 10 V to 5 V. Charge delivered = CΔV = 10 µF × 5 V = 50 µC. Energy dissipated in the Zener = Vz × Q = 5 × 50 µC = 250 µJ = 0.250 mJ.",
+  "principle": "Zener dissipation = Vz × charge through it; charge = C × (voltage swing). The resistor takes the remaining ½C(V₁²−V₂²) − VzQ.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.27; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -827,7 +827,7 @@
   "topic": "Maths - Calculus",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q36 · Maths - Calculus  (read from the image)",
+  "text": "GATE EC 2024 · Q36 · Maths - Calculus",
   "image": "figs/ec2024-q36.png",
   "options": [
    "A",
@@ -837,8 +837,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "The region is a spherical cap cut off at 60°N, i.e. 30° from the pole. Cap area = 2πR²(1 − cos 30°) = 2πR²(1 − √3/2) = πR²(2 − √3).",
+  "principle": "Spherical cap area = 2πR²(1 − cos θ) where θ is the half-angle from the pole. Latitude 60°N means θ = 30°.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.28; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -850,7 +850,7 @@
   "topic": "Control",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q37 · Control  (read from the image)",
+  "text": "GATE EC 2024 · Q37 · Control",
   "image": "figs/ec2024-q37.png",
   "options": [
    "A",
@@ -860,8 +860,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Closed-loop characteristic polynomial: s³ + 6s² + 11s + (6 + K). Decay faster than e^(−t) requires every closed-loop pole to have real part < −1. Testing the root loci gives 1 ≤ K ≤ 5 for that condition.",
+  "principle": "Decay rate is set by the rightmost pole. 'Faster than e^(−t)' means Re(pole) < −1, not merely stable (Re < 0).",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.29; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -873,7 +873,7 @@
   "topic": "Control",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q38 · Control  (read from the image)",
+  "text": "GATE EC 2024 · Q38 · Control",
   "image": "figs/ec2024-q38.png",
   "options": [
    "A",
@@ -883,8 +883,8 @@
   ],
   "answer": 1,
   "keyRaw": "B",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Closed-loop denominator: s²(s+4) + K(s+α) = s³ + 4s² + Ks + Kα. Wanted poles −1 ± j√3 give the factor s² + 2s + 4; with a third pole at −p the polynomial is s³ + (2+p)s² + (4+2p)s + 4p. Matching: 4 = 2+p → p = 2; K = 4 + 2p = 8; Kα = 4p = 8 → α = 1.",
+  "principle": "Desired poles → desired characteristic polynomial. Match coefficients one by one; solve for K and α last.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.30; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -896,7 +896,7 @@
   "topic": "EMFT",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q39 · EMFT  (read from the image)",
+  "text": "GATE EC 2024 · Q39 · EMFT",
   "image": "figs/ec2024-q39.png",
   "options": [
    "A",
@@ -906,8 +906,8 @@
   ],
   "answer": 0,
   "keyRaw": "A",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "The exponent −j(2π/3)x gives β = 2π/3 rad/m, so λ = 2π/β = 3 m. In front of a perfect conductor the magnetic field has a null at λ/4 from the surface, i.e. at x = −3/4 m.",
+  "principle": "PEC boundary: E null at the surface, H null at λ/4. Extract β from the exponent, then λ = 2π/β.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.None; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
@@ -919,7 +919,7 @@
   "topic": "Digital",
   "qtype": "MCQ",
   "marks": 2,
-  "text": "GATE EC 2024 · Q40 · Digital  (read from the image)",
+  "text": "GATE EC 2024 · Q40 · Digital",
   "image": "figs/ec2024-q40.png",
   "options": [
    "A",
@@ -929,8 +929,8 @@
   ],
   "answer": 1,
   "keyRaw": "B",
-  "solution": "Solution not written yet — send this question ID to the tutor.",
-  "principle": "",
+  "solution": "Output B = 1 when the highest-priority active input is D₂ (code 01) or D₁ (code 10). D₂ contributes only if D₃ is inactive, D₁ only if both D₃ and D₂ are inactive: B = D̄₃D₂ + D̄₃D̄₂D₁, which simplifies to D̄₃D₂ + D̄₃D₁.",
+  "principle": "Priority encoder: an input only matters when every higher-priority input is 0 — each term carries the complemented higher-priority inputs.",
   "src": "GATE 2024 EC master paper (EC24S7.pdf) p.31; official key ECFinalAnswerKey.pdf",
   "verified": true
  },
